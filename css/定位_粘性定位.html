@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粘性定位</title>
+    <style>
+      .container {
+        background: yellow;
+        width: 600px;
+        height: 1000px;
+        margin: 0 auto;
+        overflow: scroll;
+      }
+      
+      #nav {
+        --color: red;
+      }
+
+      nav {
+        position: -webkit-sticky;
+        /* 粘性定位 */
+        position: sticky;
+        top: 0px;
+      }
+
+      nav {
+        height: 50px;
+        background: var(--color);
+        color: #fff;
+        font-size: 30px;
+        line-height: 50px;
+      }
+
+      .content {
+        margin-top: 30px;
+        background: var(--color);
+      }
+
+      p {
+        line-height: 40px;
+        font-size: 30px;
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <p>我是内容栏</p>
+      <p>我是内容栏</p>
+      <p>我是内容栏</p>
+      <p>我是内容栏</p>
+      <p>我是内容栏</p>
+      <nav id="nav">我是导航栏</nav>
+      <div class="content">
+          <p>我是内容栏1</p>
+          <p>我是内容栏2</p>
+          <p>我是内容栏3</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+          <p>我是内容栏</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水平垂直居中</title>
+
+    <!-- 使用 line-height -->
+    <!-- <style>
+      .redbox {
+        height: 100px;
+        background-color: red;
+        line-height: 100px;
+        text-align: center 
+      }
+    </style> -->
+
+    <!-- 使用 vertical-align -->
+    <!-- <style>
+      .box{
+        width:200px;
+        height:150px;
+        border:1px solid black;
+        text-align:center;
+      }
+      .box::before{
+        content:'';
+        width:0;
+        height:100%;
+        display:inline-block;
+        position:relative;
+        vertical-align:middle;
+        background: black;
+      }
+      .redbox{
+        background:#c00;
+        display:inline-block;
+        vertical-align:middle;
+      }
+    </style> -->
+
+    <!-- 使用 flex 布局 -->
+    <!-- <style>
+      .box {
+        width: 300px;            
+        height: 300px;           
+        background-color: #ccc;            
+        display: flex;            
+        display: -webkit-flex;            
+        justify-content: center;            
+        align-items: center;    
+      }
+      .redbox{            
+        /* width: 100px;            
+        height: 100px;             */
+        background-color: red;        
+      }
+   </style> -->
+
+    <!-- 使用 table-cell 布局 1 -->
+    <!-- <style>
+      .box {          
+        width: 300px;            
+        height: 300px;            
+        background-color: yellow;            
+        display: table-cell;            
+        vertical-align: middle;
+        text-align: center;          
+      }
+      .redbox {            
+        margin-left: 100px;              
+        width: 100px;            
+        height: 100px;  
+        background-color: red;        
+      }
+    </style> -->
+    
+    <!-- 使用 table-cell 布局 2 -->
+    <!-- <style>
+      .redbox {          
+        width: 300px;            
+        height: 300px;            
+        background-color: red;            
+        display: table-cell;            
+        vertical-align: middle;
+        text-align: center;        
+      }
+    </style> -->
+  
+    <!-- 使用 table-cell 布局 3 -->
+    <!-- <style>
+      .box {          
+        width: 300px;            
+        height: 300px;            
+        background-color: yellow;            
+        display: table;        
+      }
+      .redbox {
+        display: table-cell;          
+        vertical-align: middle;            
+        background-color: red;
+        text-align: center;                
+      }
+    </style> -->
+
+    <!-- 使用 table-cell 布局 4 -->
+    <!-- <style>
+      .box {          
+        width: 300px;            
+        height: 300px;            
+        background-color: yellow;            
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;                   
+      }
+      img {
+        display: initial !important;
+        width: 100px;
+        height: 100px;
+      }
+    </style> -->
+
+    <!-- 使用 table-cell 布局 5 -->
+    <!-- <style>
+      *{            
+        padding: 0;            
+        margin: 0;        
+      }        
+      .box{            
+          display: table;            
+          width: 90%;            
+          margin: 10px  auto;            
+          padding: 10px;             
+          border: 1px solid green;            
+          height: 100px;        
+      }        
+      .redbox,.bluebox{            
+          display: table-cell;                        
+          width: 20%;            
+          border: 1px solid red;                 
+      }     
+      .greenbox{            
+          /* padding-top: 10px; */            
+          height: 100px;            
+          background-color: green;        
+      }
+    </style> -->
+
+    <!-- 使用 position calc()-->
+    <!-- <style>
+      .box{
+        width:200px;
+        height:150px;
+        border:1px solid #000;
+      }
+      .redbox{
+        position:relative;
+        width:30px;
+        height:30px;
+        background:#c00;
+        float:left;
+        top:calc(50% - 15px);
+        margin-left:calc(50% - 45px);
+      }
+      .greenbox{
+        position:relative;
+        width:30px;
+        height:80px;
+        background:#0c0;
+        float:left;
+        top:calc(50% - 40px);
+      }
+      .bluebox{
+        position:relative;
+        width:30px;
+        height:40px;
+        background:#00f;
+        float:left;
+        top:calc(50% - 20px);
+      }
+    </style> -->
+
+    <!-- 使用 positin 1 -->
+    <!-- <style>
+      .box{            
+        width: 300px;            
+        height: 300px;            
+        background-color: yellow;            
+        position: relative;        
+      }        
+      .redbox{            
+        width: 100px;            
+        height: 100px;            
+        background-color: red;            
+        position: absolute;            
+        left: 50%;            
+        top: 50%;            
+        margin: -50px 0 0 -50px;        
+      }
+    </style> -->
+
+    <!-- 使用 positin 2 -->
+    <!-- <style>
+      .box{            
+        width: 300px;            
+        height: 300px;           
+        background-color: yellow;            
+        position: relative;        
+      }        
+      .redbox{            
+        width: 100px;            
+        height: 100px;            
+        background-color: red;            
+        position: absolute;            
+        top: 0;            
+        bottom: 0;            
+        left: 0;            
+        right: 0;            
+        margin: auto;        
+      }
+    </style> -->
+
+    <!-- 使用 position transform -->
+    <style>
+      .box{            
+        width: 300px;            
+        height: 300px;            
+        background-color: yellow;            
+        position: relative;        
+      }        
+      .redbox{            
+        width: 100px;            
+        height: 100px;            
+        background-color: red;            
+        position: absolute;            
+        left: 50%;            
+        top: 50%;            
+        transform: translate(-50%,-50%);        
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="box">
+      <div class="redbox">redbox</div>
+      <div class="greenbox"><img  style="display: none;" src="./images/monkey.jpg" alt=""></div>
+      <div class="bluebox"></div>
+    </div>
+
+  </body>
+</html>

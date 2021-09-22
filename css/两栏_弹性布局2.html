@@ -1,0 +1,189 @@
+<!-- 两栏弹性布局 -->
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>Flexbox example page</title>
+    <style>
+      /* 网页基础样式 */
+      :root {
+        box-sizing: border-box;
+      }
+      * , ::after , ::before {
+        box-sizing: inherit;
+      }
+      body {
+        background-color: #709b90;
+      }
+      body * + * {
+        margin-top: 1.5em;
+      }
+      .container {
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+      /* 导航 */
+      .site-nav {
+        display: flex;   /* 弹性布局 */
+        padding: 0.5em;
+        list-style-type: none;   /* 取消列表左侧 */
+        background-color: #5f4b44;
+        border-radius: 0.2em;
+      }
+      .site-nav > li {
+        margin-top: 0;
+      }
+      .site-nav > li > a {
+        display: block;   /* 链接成为块级元素，能够撑开父元素高度 */
+        padding: 0.5em 1em;
+        background-color: #cc6b5a;
+        color: white;
+        text-decoration: none;
+      }
+      .site-nav > li + li {
+        margin-left: 1.5em;
+      }
+      .site-nav > .nav-right {
+        margin-left: auto;
+      }
+      /* 主容器 */
+      .tile {
+        padding: 1.5em;
+        background-color: #fff;
+      }
+      .flex {
+        display: flex;   /* 弹性布局 */
+      }
+      .flex > * + * {
+        margin-top: 0;
+        margin-left: 1.5em;
+      }
+      .column-main {
+        flex: 2;   /* 弹性子元素布局 */
+      }
+      .column-sidebar  {
+        flex: 1;   /* 弹性子元素布局 */
+        display: flex;   /* 弹性布局 */
+        flex-direction: column;
+      }
+      .column-sidebar > .tile {
+        flex: 1;   /* 弹性子元素布局。设置保持主板块底部和右第二小板块底部对齐 */
+      }
+      /* 右侧边板块 */
+      .login-form h3 {
+        margin: 0;
+        font-size: 0.9em;
+        font-weight: bold;
+        text-align: right;
+        text-transform: uppercase;
+      }
+      .login-form input:not([type=checkbox]):not([type=radio]) {
+        display: block;
+        width: 100%;
+        margin-top: 0;
+      }
+      .login-form button {
+        margin-top: 1em;
+        border: 1px solid #cc6b5a;
+        background-color: white;
+        padding: 0.5em 1em;
+        cursor: pointer;   /* 修改鼠标指针样式 */
+      }
+      .centered {
+        text-align: center;
+      }
+      .cost {
+        display: flex;   /* 弹性布局 */
+        justify-content: center;   /* 主轴居中 */
+        align-content: center;   /* 副轴居中 */
+        line-height: 0.7;
+      }
+      .cost > span {
+        margin-top: 0;
+      }
+      .cost-currency {
+        font-size: 2rem;
+      }
+      .cost-dollars {
+        font-size: 4rem;
+      }
+      .cost-cents {
+        font-size: 1.5em;
+        align-self: flex-start;
+      }
+      .cta-button {
+        display: block;
+        background-color: #cc6b5a;
+        color: white;
+        padding: 0.5em 1em;
+        text-decoration: none;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container">
+      
+      <header>
+        <h1>Ink</h1>
+      </header>
+      
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/HTML/my_web.html">Home</a></li>
+          <li><a href="/HTML/box.html">Features</a></li>
+          <li><a href="/HTML/flexbox.html">Pricing</a></li>
+          <li><a href="/HTML/test.html">Support</a></li>
+          <li class="nav-right"><a href="/HTML/w3school.html">About</a></li>
+        </ul>
+      </nav>
+
+      <main class="flex">
+
+        <div class="column-main tile">
+
+          <h1>Team collaboration done right</h1>
+          <p>
+            Thousands of teams from all over the
+            world turn to <b>Ink</b> to communicate
+            and get things done.
+          </p>
+
+        </div>
+
+        <div class="column-sidebar">
+
+          <div class="tile">
+            <form class="login-form">
+              <h3>Login</h3>
+              
+              <p>
+                <label for="username">Username</label>
+                <input id="username" type="text" name="username">
+              </p>
+
+              <p>
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password">
+              </p>
+
+                <button type="submit">Login</button>
+
+            </form>
+          </div>
+
+          <div class="tile centered">
+            <small>Starting at</small>
+            <div class="cost">
+              <span class="cost-currency">$</span>
+              <span class="cost-dollars">20</span>
+              <span class="cost-cents">.00</span>
+            </div>
+            <a class="cta-button" href="/HTML/flexbox.html">Sign up</a>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
