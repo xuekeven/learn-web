@@ -1,248 +1,237 @@
-
 <!doctype html>
 <html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">   <!--视口meta标签-->
+    <title>Responsive</title>
+    <style>
+      :root {
+        box-sizing: border-box;
+      }
+      * , *::after ,*::before {
+        box-sizing: inherit;
+      }
 
-    <head>
+      body {
+        margin: 0;
+      }
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">   <!--视口meta标签-->
-        <title>Responsive</title>
+      /*   外接链接样式   */
 
-        <style>
-            
-            :root {
-                box-sizing: border-box;
-            }
+      a:link {
+        color: #1476b8;
+        font-weight: bold;
+        text-decoration: none;
+      }
 
-            * , *::after ,*::before {
-                box-sizing: inherit;
-            }
+      a:visited {
+        color: #1430b8;
+      }
 
-            body {
-                margin: 0;
-            }
+      a:hover {
+        text-decoration: underaline;
+      }
 
-            /*   外接链接样式   */
+      a:active {
+        color: #b81414;
+      }
 
-            a:link {
-                color: #1476b8;
-                font-weight: bold;
-                text-decoration: none;
-            }
+      /*   网页头部和标题   */
 
-            a:visited {
-                color: #1430b8;
-            }
+      .page-header {
+        padding: 0.4em 1em;
+        background-color: #fff;
+      }
 
-            a:hover {
-                text-decoration: underaline;
-            }
+      .title > h1 {
+        color: #333;
+        text-transform: uppercase;
+        font-size: 1.5em;
+        margin: 0.2em 0;
+      }
 
-            a:active {
-                color: #b81414;
-            }
+      .slogan {
+        color:#888;
+        font-size: 0.875em;
+        margin: 0;
+      }
 
-            /*   网页头部和标题   */
+      /*   给页面加主图   */
 
-            .page-header {
-                padding: 0.4em 1em;
-                background-color: #fff;
-            }
+      .hero {
+        padding: 2em 1em;
+        text-align: center;
+        background-image: url(../images/coffee-beans.jpg);
+        background-size: 100%;
+        color: #fff;
+        text-shadow: 0.1em 0.1em 0.3em #000; 
+      }
 
-            .title > h1 {
-                color: #333;
-                text-transform: uppercase;
-                font-size: 1.5em;
-                margin: 0.2em 0;
-            }
+      /*   主体内容   */
 
-            .slogan {
-                color:#888;
-                font-size: 0.875em;
-                margin: 0;
-            }
+      .main {
+        padding: 1em;
+      }
 
-            /*   给页面加主图   */
+      .subtitle {
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+      }
 
-            .hero {
-                padding: 2em 1em;
-                text-align: center;
-                background-image: url(../images/coffee-beans.jpg);
-                background-size: 100%;
-                color: #fff;
-                text-shadow: 0.1em 0.1em 0.3em #000; 
-            }
+      /*   菜单导航栏   */
 
-            /*   主体内容   */
+      .menu {
+        position: relative;
+      }
 
-            .main {
-                padding: 1em;
-            }
+      .menu-toggle {
+        position: absolute;
+        top: -1.2em;
+        right: 0.1em;
 
-            .subtitle {
-                margin-top: 1.5em;
-                margin-bottom: 1.5em;
-                font-size: 0.875rem;
-                text-transform: uppercase;
-            }
+        border: 0;
+        background-color: transparent;
 
-            /*   菜单导航栏   */
+        font-size: 3em;
+        width: 1em;
+        height: 1em;
+        line-height: 0.4;
+        text-indent: 5em;
+        white-space: nowrap;
+        overflow: hidden;
+      }
 
-            .menu {
-                position: relative;
-            }
+      .menu-toggle::after {
+        position: absolute;
+        top: 0.2em;
+        left: 0.2em;
+        display: block;
+        content: "\2261";   /*   用汉堡包图标代替原样式   */
+        text-indent: 0;
+      }
 
-            .menu-toggle {
-                position: absolute;
-                top: -1.2em;
-                right: 0.1em;
+      .menu-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin: 0;
+      }
 
-                border: 0;
-                background-color: transparent;
+      .menu.is-open .menu-dropdown {
+        display: block;
+      }
 
-                font-size: 3em;
-                width: 1em;
-                height: 1em;
-                line-height: 0.4;
-                text-indent: 5em;
-                white-space: nowrap;
-                overflow: hidden;
-            }
+      .hero {
+        padding: 2em 1em;
+        text-align: center;
+        background-image: url(coffee-beans.jpg);
+        background-size: 100%;
+        color: #fff;
+        text-shadow: 0.1em 0.1em 0.3em #000;
+      }
 
-            .menu-toggle::after {
-                position: absolute;
-                top: 0.2em;
-                left: 0.2em;
-                display: block;
-                content: "\2261";   /*   用汉堡包图标代替原样式   */
-                text-indent: 0;
-            }
+      .nav-menu {
+        margin: 0;
+        padding-left: 0;
+        border: 1px solid #ccc;
+        list-style: none;
+        background-color: #000;
+        color: #fff;
+      }
 
-            .menu-dropdown {
-                display: none;
-                position: absolute;
-                right: 0;
-                left: 0;
-                margin: 0;
-            }
+      .nav-menu > li + li {
+        border-top: 1px solid #ccc;
+      }
 
-            .menu.is-open .menu-dropdown {
-                display: block;
-            }
+      .nav-menu > li > a {
+        display: block;
+        padding: 0.8em 1em;
+        color: #fff;
+        font-weight: normal;
+      }
+    </style>
 
-            .hero {
-                padding: 2em 1em;
-                text-align: center;
-                background-image: url(coffee-beans.jpg);
-                background-size: 100%;
-                color: #fff;
-                text-shadow: 0.1em 0.1em 0.3em #000;
-            }
+  </head>
 
-            .nav-menu {
-                margin: 0;
-                padding-left: 0;
-                border: 1px solid #ccc;
-                list-style: none;
-                background-color: #000;
-                color: #fff;
-            }
+  <body>
 
-            .nav-menu > li + li {
-                border-top: 1px solid #ccc;
-            }
+    <header id="header" class="page-header">
 
-            .nav-menu > li > a {
-                display: block;
-                padding: 0.8em 1em;
-                color: #fff;
-                font-weight: normal;
-            }
-        </style>
+      <div class="title">
+        <h1>Wombat Coffee Roasters</h1>
+        <div class="slogan">We love coffee</div>
+      </div>
 
-    </head>
+    </header>
+    
+    <nav class="menu" id="main-menu">
 
-    <body>
+      <button class="menu-toggle" id="toggle-menu">toggle menu</button>
+      
+      <div class="menu-dropdown">
+        <ul class="nav-menu">
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/shop.html">Shop</a></li>
+          <li><a href="/menu.html">Menu</a></li>
+          <li><a href="/brew.html">Brew</a></li>
+        </ul>
+      </div>
 
-        <header id="header" class="page-header">
+    </nav>
 
-            <div class="title">
-                <h1>Wombat Coffee Roasters</h1>
-                <div class="slogan">We love coffee</div>
-            </div>
+    <aside id="hero" class="hero">
+      Welcome to Wombat Coffee Roasters! We are
+      passionate about our craft, striving to bring you
+      the best hand-crafted coffee in the city.
+    </aside>
+    
+    <main id="main">
+      <div class="row">
 
-        </header>
-        
-        <nav class="menu" id="main-menu">
+        <section class="column">
+          <h2 class="subtitle">Single-origin</h2>
+          <p>We have built partnerships with small farms
+          around the world to hand-select beans at the
+          peak of season. We then carefully roast in
+          <a href="/batch-size.html">small batches</a>
+          to maximize their potential.</p>
+        </section>
 
-            <button class="menu-toggle" id="toggle-menu">toggle menu</button>
-            
-            <div class="menu-dropdown">
-                <ul class="nav-menu">
-                    <li><a href="/about.html">About</a></li>
-                    <li><a href="/shop.html">Shop</a></li>
-                    <li><a href="/menu.html">Menu</a></li>
-                    <li><a href="/brew.html">Brew</a></li>
-                </ul>
-            </div>
+        <section class="column">
+          <h2 class="subtitle">Blends</h2>
+          <p>
+            Our tasters have put together a selection of
+            carefully balanced blends. Our famous
+            <a href="/house-blend.html">house blend</a>
+            is available year round.
+          </p>
+        </section>
 
-        </nav>
+        <section class="column">
+          <h2 class="subtitle">Brewing Equipment</h2>
+          <p>
+            We offer our favorite kettles, French
+            presses, and pour-over cones. Come to one of
+            our <a href="/classes.html">brewing
+            classes</a> to learn how to brew the perfect
+            pour-over cup.
+          </p>
+        </section>
+      </div>
+    </main>
 
-        <aside id="hero" class="hero">
-            Welcome to Wombat Coffee Roasters! We are
-            passionate about our craft, striving to bring you
-            the best hand-crafted coffee in the city.
-        </aside>
-        
-        <main id="main">
-            <div class="row">
-
-                <section class="column">
-                    <h2 class="subtitle">Single-origin</h2>
-                    <p>We have built partnerships with small farms
-                    around the world to hand-select beans at the
-                    peak of season. We then carefully roast in
-                    <a href="/batch-size.html">small batches</a>
-                    to maximize their potential.</p>
-                </section>
-
-                <section class="column">
-                    <h2 class="subtitle">Blends</h2>
-                    <p>
-                        Our tasters have put together a selection of
-                        carefully balanced blends. Our famous
-                        <a href="/house-blend.html">house blend</a>
-                        is available year round.
-                    </p>
-                </section>
-
-                <section class="column">
-                    <h2 class="subtitle">Brewing Equipment</h2>
-                    <p>
-                        We offer our favorite kettles, French
-                        presses, and pour-over cones. Come to one of
-                        our <a href="/classes.html">brewing
-                        classes</a> to learn how to brew the perfect
-                        pour-over cup.
-                    </p>
-                </section>
-
-            </div>
-        </main>
-
-        <script>
-            
-            (function() {
-            var button = document.getElementById('toggle-menu');
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                var menu = document.getElementById('main-menu');
-                menu.classList.toggle('is-open');
-            });
-            })();
-            
-        </script>
-
-    </body>
-
+    <script>
+      (function() {
+      var button = document.getElementById('toggle-menu');
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var menu = document.getElementById('main-menu');
+        menu.classList.toggle('is-open');
+      });
+      })();
+    </script>
+  </body>
 </html>

@@ -6,16 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>圣杯布局</title>
     <style>
-      /* 参考：https://juejin.cn/post/6844903565278855181 。 */
+      /* 参考：https://juejin.cn/post/6844903565278855181 */
       * {
         margin: 0;
         padding: 0;
       }
       body {
-        min-width: 600px; /* 圣杯布局最好设置最小宽度，否则布局可能会乱 */
+        /* 圣杯布局最好设置最小宽度，否则页面太小时布局会乱。最小宽度 = left-width * 2 + right-width */
+        /* 由于设置相对定位，所以当left原来的位置和right的位置产生重叠时，由于浮动，一行放不下就会换行 */
+        min-width: 600px; 
       }
       .header,
-      .footer { /* 设置头和尾 */
+      .footer { /* 设置页面的头和尾 */
         height: 50px; /* 高度 */
         line-height: 50px; /* 文字垂直居中 */
         text-align: center; /* 文字水平居中 */
@@ -36,18 +38,18 @@
         width: 200px; /* 固定宽度 */
         min-height: 130px; /* 高度 */
         background-color: red; /* 背景颜色 */
-        margin-left: -100%; /* 使用负外边距把left放到main的左边 */
-        position: relative; /* 使用定位来移动左栏 */
-        left: -200px; /* 移动左栏，不要遮挡main */
+        margin-left: -100%;  /* 使用负外边距移动left（会导致遮挡main） */
+        position: relative; /* 使用绝对定位来移动left */
+        left: -200px; /* 移动left，不要遮挡main */
       }
       .right { /* 设置右栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 200px; /* 固定宽度 */
         min-height: 130px; /* 高度 */
         background-color: yellow; /* 背景颜色 */
-        margin-left: -200px; /* 使用负外边距把left放到main的右边 */
-        position: relative; /* 使用定位来移动右栏 */
-        right: -200px; /* 移动右栏，不要遮挡main */
+        margin-left: -200px; /* 使用负外边距移动right（会导致遮挡main） */
+        position: relative; /* 使用绝对定位来移动right */
+        right: -200px; /* 移动right，不要遮挡main */
       }
     </style>
 

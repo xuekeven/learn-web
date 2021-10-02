@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <title>Picture</title>
+    <style>
+      body {
+        color: #333;
+        background-color: #ccc;
+        margin: 1em 10%;
+      }
+      h1 {
+        background-color: transparent;
+      }
+      a {
+        color: #c60;
+        background-color: transparent;
+        font-weight: bold;
+        text-decoration: none;
+      }
+      ul {
+        padding: 0;
+      }
+      li {
+        float: left;
+        padding: 1em;
+        list-style: none;
+      }
+      img {
+        display: block;
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Snapshots</h1>
+    <ul id="imagegallery">
+      <li><a href="../images/bird.jpg" onclick="showPic(this);return false;" title="A bird.">Brid</a></li>
+      <li><a href="../images/elephants.jpg" onclick="showPic(this);return false;" title="A elephants.">Elephants</a></li>
+      <li><a href="../images/monkey.jpg" onclick="showPic(this);return false;" title="A monkey.">Monkey</a></li>
+      <li id='a'><a href="../images/eagle.jpg" onclick="showPic(this);return false;" title="A eagle.">Eagle</a></li>
+    </ul>
+    <img id="placeholder" src="../images/bird.jpg" alt="picture" style="width: 500px;height: 350px;">
+    <p id="description">Choose a picture.</p>
+
+    <script>
+      function showPic(whichpic) {
+        const source = whichpic.getAttribute('href');
+        const placeholder = document.getElementById('placeholder');
+        placeholder.setAttribute('src', source);
+        const text = whichpic.getAttribute('title');
+        const description = document.getElementById('description');
+        description.firstChild.nodeValue = text;
+      }
+    </script>
+  </body>
+</html>
