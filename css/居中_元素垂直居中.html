@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元素垂直居中</title>
+    <style>
+      .father {
+        width: 300px;
+        height: 300px;
+        background-color: blueviolet;
+      }
+      .son {
+        width: 100px;
+        height: 200px;     
+        background-color: coral;
+      }
+      
+      /* 绝对定位 + calc() */
+      /* .father {
+        position: relative;
+      }
+      .son {
+        position: absolute;
+        top: calc(50% - 100px);
+      } */
+
+      /* 绝对定位 + margin */
+      /* .father {
+        position: relative;
+      }
+      .son {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+      } */
+
+      /* 绝对定位 + 负 margin */
+      /* .father {
+        position: relative;
+      }
+      .son {
+        position: absolute;
+        top: 50%;
+        margin-top: -100px;
+      } */
+
+      /* 绝对定位 + transform */
+      /* .father {
+        position: relative;
+      }
+      .son {
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+      } */
+
+      /* 弹性布局1 */
+      /* .father {
+        display: flex;
+        align-items: center
+      } */
+
+      /* 弹性布局2 */
+      /* .father {
+        display: flex;
+      }
+      .son {
+        align-self: center
+      } */
+
+      /* 网格布局1 */
+      /* .father {
+        display: grid;
+        align-items: center
+      } */
+
+      /* 网格布局2 */
+      /* .father {
+        display: grid;
+        align-content: center
+      } */
+
+      /* 网格布局3 */
+      /* .father {
+        display: grid;
+      }
+      .son {
+        align-self: center
+      } */
+    </style>
+  </head>
+  
+  <body>
+    <div class="father">
+      <div class="son"></div>
+    </div>
+  </body>
+</html>
