@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM_Element_Traversal_API</title>
+</head>
+<body>
+  <div class="a div" id="a">a</div>
+  <div class="b div" id="b">b</div>
+  <div class="c div" id="c">c</div>
+  <div class="d div" id="d">
+    <span class="eee div" id="eee1">eee1</span>
+    <span class="eee div" id="eee2">eee2</span>
+    <span class="eee div" id="eee3">eee3</span>
+  </div>
+
+  <script>
+    // Element Traversal API 为 DOM 元素添加了 5 个属性。
+
+    // childElementCount，返回子元素数量（不包含文本节点和注释）
+    document.head.childElementCount; // 4
+    document.body.childElementCount; // 5
+    document.querySelector('#d').childElementCount; // 3
+
+    // firstElementChild，指向第一个 Element 类型的子元素（Element 版 firstChild）
+    document.head.firstElementChild; // 取得 <meta charset="UTF-8">
+    document.body.firstElementChild; // 取得 <div class="a div" id="a">a</div>
+    document.querySelector('#d').firstElementChild; // 取得 <span class="eee div" id="eee1">eee1</span>
+
+    // lastElementChild，指向最后一个 Element 类型的子元素（Element 版 lastChild）
+    document.head.lastElementChild; // 取得 <title>Element_Traversal_API</title>
+    document.body.lastElementChild; // 取得此 script 标签
+    document.querySelector('#d').lastElementChild; // 取得 <span class="eee div" id="eee3">eee3</span>
+
+    // previousElementSibling ，指向前一个 Element 类型的同胞元素（ Element 版 previousSibling）
+    document.head.previousElementSibling; // null
+    document.body.previousElementSibling; // 取得 head 标签
+    document.querySelector('#d').previousElementSibling; // 取得 <div class="c div" id="c">c</div>
+
+    // nextElementSibling，指向后一个 Element 类型的同胞元素（Element 版 nextSibling）
+    document.head.nextElementSibling; // 取得 body 标签
+    document.body.nextElementSibling; // null
+    document.querySelector('#d').nextElementSibling; // 取得此 script 标签
+  </script>
+
+</body>
+</html>

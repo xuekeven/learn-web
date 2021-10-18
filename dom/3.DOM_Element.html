@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM_Element</title>
+</head>
+<body>
+  <div class="a div" id="a">a</div>
+  <div class="b div" id="b">b</div>
+  <div class="c div" id="c" selfAtt = 'setBySelfC'>
+    <span class="ddd div" id="ddd1" name='ddd1' title = 'd1' lang="ZH-CN">ddd1</span>
+    <span class="ddd div" id="ddd2" name='ddd2'>ddd2</span>
+  </div>
+
+  <script>
+    // 除了 Document 类型，Element 类型就是 Web 开发中最常用的类型。Element 类型表示 XML 或 HTML 元素，
+    // 对外暴露出访问元素标签名、子节点和属性的能力。Element 类型的节点具有以下特征：
+    // 1.nodeType 等于 1； 
+    // 2.nodeName 值为元素的标签名；
+    // 3.nodeValue 值为 null； 
+    // 4.parentNode 值为 Document 或 Element 对象；
+    // 5.子节点可是 Element、Text、Comment、ProcessingInstruction、CDATASection、EntityReference 类型。
+    // 可以通过 nodeName 或 tagName 属性来获取元素的标签名。
+    // 这两个属性返回同样的值（添加后一个属性明显是为了不让人误会）。
+    document.getElementById('c').nodeName; // 'DIV'
+    document.getElementById('c').tagName;  // 'DIV'
+    // 在 HTML 中，元素标签名始终以全大写表示；在 XML（含 XHTML）中，标签名始终与源代码中的大小写一致。
+    // 如果不确定脚本是在 HTML 文档还是 XML 文档中运行，最好将标签名转换为小写形式，以便于比较。
+
+    // 1.HTML 元素
+    // 所有 HTML 元素都通过 HTMLElement 类型表示，包括其直接实例和间接实例。
+    // HTMLElement 继承 Element 并增加一些属性。
+    // 每个属性都对应下列五个属性之一，它们是所有 HTML 元素上都有的标准属性：
+    // id，元素在文档中的唯一标识符；
+    // title，包含元素的额外信息，通常以提示条形式展示；
+    // lang，元素内容的语言代码（很少用）； 
+    // dir，语言的书写方向（"ltr"表示从左到右，"rtl"表示从右到左，很少用）；
+    // className，相当于 class 属性，用于指定元素的 CSS 类（class 是 ES 关键字，不能直接用）。
+    // 所有这些都可以用来获取对应的属性值，也可以用来修改相应的值。
+    let dd = document.getElementById('ddd1');
+    dd.id;        // 'ddd1'
+    dd.title;     // 'd1'
+    dd.lang;      // 'ZH-CN'
+    dd.dir;       // ''
+    dd.className; // 'ddd div'
+    dd.id = "someOtherId"; 
+    dd.className = "ft"; 
+    dd.title = "Some other text"; 
+    dd.lang = "fr"; 
+    dd.dir ="rtl";
+    // 并非所有这些属性的修改都会对页面产生影响。修改 id 或 lang 改成其他值对用户不可见；
+    // 修改 title 只会在鼠标移到这个元素上时才会反映出来；修改 dir 会导致页面文本立即向左或向右对齐；
+    // 修改 className 会立即反映应用到新类名的 CSS 样式（如果定义了不同的样式）。
+
+    // 2.取得属性
+    // 每个元素都有零个或多个属性，通常用于为元素或其内容附加更多信息。
+    // 与属性相关 DOM 方法主要有 3 个：getAttribute()、setAttribute()、removeAttribute()。
+    // 这些方法主要用于操纵属性，包括在 HTMLElement 类型上定义的属性。
+    // 传给 getAttribute() 的属性名与它们实际的属性名是一样的，要传"class"而非"className"，
+    // className 是作为对象属性时才那么拼写的。如果给定的属性不存在，则返回 null。
+    // getAttribute() 方法也能取得不是 HTML 语言正式属性的自定义属性的值（可以取得自定义属性）
+    // 属性名不区分大小写，因此"ID"和"id"被认为是同一个属性。
+    // 另外，根据 HTML5 规范的要求，自定义属性名应该前缀 data-以方便验证。
+    let cc = document.getElementById('c');
+    cc.getAttribute('*');       // null
+    cc.getAttribute('id');      // 'c'
+    cc.getAttribute('class');   // 'c div'
+    cc.getAttribute('selfAtt'); // 'setBySelfC'
+    // 元素的所有属性也可以通过相应 DOM 元素对象的属性来取得。当然，这包括 HTMLElement 上定义的
+    // 直接映射对应属性的 5 个属性，还有所有公认（非自定义）的属性也会被添加为 DOM 对象的属性。
+    // 自定义属性，不会成为 DOM 对象的属性。
+    // 通过 DOM 对象访问的属性中有两个返回的值跟使用 getAttribute() 取得的值不一样。
+
+    // 3.设置属性
+    // 与 getAttribute() 配套的方法是 setAttribute()，这个方法接收两个参数：要设置的属性名
+    // 和属性的值。如果属性已经存在，则 setAttribute() 会以指定的值替换原来的值；
+    // 如果属性不存在，则 setAttribute() 会以指定的值创建该属性。
+    // setAttribute() 适用于 HTML 属性，也适用于自定义属性。另外，使用 setAttribute() 方法
+    // 设置的属性名会规范为小写形式，因此"ID"会变成"id"。
+    // 因为元素属性也是 DOM 对象属性，所以直接给 DOM 对象的属性赋值也可以设置元素属性的值，
+    // 但是，在 DOM 对象上添加自定义属性，不会自动让它变成元素的属性。
+    let bb = document.getElementById('b');
+    bb.setAttribute('title', 'bbb');
+    bb.setAttribute('lang', 'fr');
+    bb.setAttribute('class', 'b div bdiv');
+    bb.setAttribute('selfAtt', 'setBySelfC');
+    bb.getAttribute('title');   // 'bbb'
+    bb.getAttribute('lang');    // 'fr'
+    bb.getAttribute('class');   // 'b div bdiv'
+    bb.getAttribute('setAtt');  // 'setBySelfC'
+
+    // 4.删除属性
+    // removeAttribute() 用于从元素中删除属性。这样不单单是清除属性的值，而是会把整个属性
+    // 完全从元素中去掉。这个方法用得并不多，但在序列化 DOM 元素时可以通过它控制要包含的属性。
+    let aa = document.getElementById('a');
+    aa.removeAttribute('id');
+
+    // 5.attributes 属性
+    // Element 类型是唯一使用 attributes 属性的 DOM 节点类型。
+    // attributes 属性包含一个 NamedNodeMap 实例，是一个类似 NodeList 的“实时”集合。
+    // 元素的每个属性都表示为一个 Attr 节点，并保存在这个 NamedNodeMap 对象中。NamedNodeMap 对象包含方法：
+    // getNamedItem(name)，返回 nodeName 属性等于 name 的节点；
+    // removeNamedItem(name)，删除 nodeName 属性等于 name 的节点；
+    // setNamedItem(node)，向列表中添加 node 节点，以其 nodeName 为索引；
+    // item(pos)，返回索引位置 pos 处的节点。
+    // attributes 属性中的每个节点的 nodeName 是对应属性的名字，nodeValue 是属性的值。
+    let dd2 = document.getElementById('ddd2');
+    dd2.attributes; // {0: class, 1: id, 2: name, class: class, id: id, name: name, length: 3}
+    dd2.attributes.getNamedItem('id');           // id="ddd2"
+    dd2.attributes.getNamedItem('id').nodeValue; // 'ddd2'
+    // 使用中括号访问属性的简写形式。
+    dd2.attributes['id'];                        // id="ddd2"
+    dd2.attributes['id'].nodeValue;              // 'ddd2'
+    // 也可以用这种语法设置属性的值，即先取得属性节点，再将其 nodeValue 设置为新值。
+    dd2.attributes['class'].nodeValue = 'ddd div dd2';
+    dd2.attributes['class'].nodeValue;           // 'ddd div dd2'
+    // removeNamedItem() 方法与元素上的 removeAttribute() 方法类似，也是删除指定名字的属性。
+    // 不同之处就是 removeNamedItem() 返回表示被删除属性的 Attr 节点。
+    dd.attributes.removeNamedItem('name');       // name="ddd1"
+    // setNamedItem() 方法很少使用，它接收一个属性节点，然后给元素添加一个新属性
+    dd.attributes.setNamedItem(newAttr);
+    // 一般来说，因为使用起来更简便，通常开发者更喜欢使用 getAttribute()、
+    // removeAttribute()、setAttribute() 方法，而不是 NamedNodeMap 对象的方法。
+    // attributes 属性最有用的场景是需要迭代元素上所有属性的时候。这时候往往是要把 DOM 结构序列
+    // 化为 XML 或 HTML 字符串。HTML 或 XML 代码中属性出现的顺序不一定与 attributes 中的顺序一致。
+
+    // 6.创建元素
+    // 可以使用 document.createElement() 方法创建新元素。这个方法接收一个参数，即要创建元素的标签名。
+    // 在 HTML 文档中，标签名是不区分大小写的，而 XML 文档（包括 XHTML）是区分大小写的。
+    // 使用 createElement()方法创建新元素的同时也会将其 ownerDocument 属性设置为 document。
+    // 此时，可以再为其添加属性、添加更多子元素。在新元素上设置这些属性只会附加信息。
+    // 因为这个元素还没有添加到文档树，所以不会影响浏览器显示。
+    // 要把元素添加到文档树，可以使用 appendChild()、insertBefore()、replaceChild()。
+    // 元素被添加到文档树之后，浏览器会立即将其渲染出来。
+    // 之后再对这个元素所做的任何修改，都会立即在浏览器中反映出来。
+    let div = document.createElement('div');
+    div.id = 'newDiv';
+    div.class = 'newdiv div';
+    document.body.appendChild(div);
+
+    // 7.元素后代
+    // 元素可以拥有任意多个子元素和后代元素，因为元素本身也可以是其他元素的子元素。
+    // childNodes 属性包含元素所有的子节点，这些子节点可能是其他元素、文本节点、注释或处理指令。
+    // 不同浏览器在识别这些节点时的表现有明显不同，使用 childNodes 属性返回是 NodeList 对象。
+    // 要取得某个元素的子节点和其他后代节点，可以使用元素的 getElementsByTagName() 方法。
+    let ccChild = document.getElementById('c').childNodes;
+    // 取得 [text, span#someOtherId.ft, text, span#ddd2.ddd.div.dd2, text]
+    // cc 元素包含 5 个子元素，2 个 <span> 元素，3 个 Text 节点（表示 <span> 元素周围的空格）。
+    // 如果把元素之间的空格删掉，则元素间不会换行，而是紧凑无间隙。
+    
+  </script>
+
+</body>
+</html>

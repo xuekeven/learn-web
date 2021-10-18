@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM_Document</title>
+</head>
+<body>
+  <div class="a div" id="a">a</div>
+  <div class="b div" id="b">b</div>
+  <div class="c div" id="c">
+    <span class="ddd div" id="ddd1" name='ddd1'>ddd1</span>
+    <span class="ddd div" id="ddd2" name='ddd2'>ddd2</span>
+  </div>
+
+  <script>
+    // Document 类型是 JavaScript 中表示文档节点的类型。在浏览器中，文档对象 document 是
+    // HTMLDocument 的实例（HTMLDocument 继承 Document），表示整个 HTML 页面。
+    // document 是 window 对象的属性，因此是一个全局对象。Document 类型的节点有以下特征：
+    // 1.nodeType 等于 9； 
+    // 2.nodeName 值为"#document"； 
+    // 3.nodeValue 值为 null；
+    // 4.parentNode 值为 null；
+    // 5.ownerDocument 值为 null；
+    // 6.子节点可是 DocumentType（最多一个）、Element（最多一个）、ProcessingInstruction、Comment 类型。
+    // Document 类型可以表示 HTML 页面或其他 XML 文档，但最常用的还是通过 HTMLDocument 的实例
+    // 取得 document 对象。document 对象可用于获取关于页面的信息以及操纵其外观和底层结构。
+
+    // 1.文档子节点
+    // Document 节点的子节点可以是 DocumentType、Element、ProcessingInstruction、Comment，
+    // 也提供了两个访问子节点的快捷方式：documentElement 属性和 doctype 属性。
+    // documentElement 属性，指向 HTML 页面中的 <html> 元素；doctype 属性，指向 <!doctype> 元素。
+    // 此外，作为 HTMLDocument 的实例，document 对象还有一个 body 属性，直接指向 <body> 元素。
+    document.documentElement; // 取得 html 标签
+    document.doctype;         // 取得 <!DOCTYPE html>
+    document.body;            // 取得 body 标签
+    // 一般来说，appendChild()、removeChild()、replaceChild() 方法不会用在 document 对象上。
+    // 这是因为文档类型（如果存在）是只读的，且只能有一个 Element 类型的子节点（即 <html> 已经存在）。
+    document.firstChild;      // 取得 <!DOCTYPE html>
+    document.childNodes;      // 取得 [<!DOCTYPE html>, html]
+
+    // 2.文档信息
+    // document 作为 HTMLDocument 实例，还有一些 Document 上没有的属性。这些属性提供浏览器所加载网页的信息。
+    // title 属性包含 <title> 元素中的文本，通常显示在浏览器窗口或标签页的标题栏。通过 title 属性可以
+    // 读写页面的标题，修改后的标题也会反映在浏览器标题栏上。但是修改 title 属性并不会改变 <title> 元素。
+    document.title;                    // 'DOM_Document'
+    document.title = "New page title"; // 'New page title'
+    // URL 属性包含当前页面的完整 URL（地址栏中的 URL），domain 属性包含页面的域名，
+    // referrer 属性包含链接到当前页面的那个页面的 URL。如果当前页面没有来源，referrer 属性包含空字符串。
+    // 这三个当中，只有 domain 属性是可以设置的。出于安全考虑，给 domain 属性设置的值是有限制的。
+    document.URL;                      // 取得完整的 URL 
+    document.domain;                   // 取得域名
+    document.referrer;                 // 取得来源
+
+    // 3.定位元素
+    // 使用 DOM 最常见的情形可能就是获取某个或某组元素的引用，然后对它们执行某些操作。
+    // document 对象上暴露了一些方法，可以实现这些操作。
+    // getElementById() 方法接收一个参数，即要获取元素的 ID，如果找到了则返回这个元素，没找到则返回 null。
+    // 参数 ID 必须跟元素在页面中的 id 属性值完全匹配，包括大小写。
+    // 如果页面中存在多个具有相同 ID 的元素，则 getElementById() 返回在文档中出现的第一个元素。
+    document.getElementById('b'); // 取得 <div class="b div" id="b">b</div>
+    // getElementsByTagName() 方法接收一个参数，即要获取元素的标签名，返回包含零个或多个元素的 NodeList。
+    // 在 HTML 文档中，该方法返回 HTMLCollection 对象。HTMLCollection 和 NodeList 很相似，都是“实时”列表。
+    // 要取得文档中的所有元素，可以给该方法传入*。在 JS 和 CSS 中，* 被认为是匹配一切的字符。
+    document.getElementsByTagName('div');
+    // 取得 [div#a.a.div, div#b.b.div, div#c.c.div, a: div#a.a.div, b: div#b.b.div, c: div#c.c.div] 
+    document.getElementsByTagName('*');
+    // 取得 [html, head, meta, meta, meta, title, body, div#a.a.div, div#b.b.div, div#c.c.div, 
+    // span#ddd1.ddd.div, span#ddd2.ddd.div, script, viewport: meta, a: div#a.a.div, 
+    // b: div#b.b.div, c: div#c.c.div, ddd1: span#ddd1.ddd.div, ddd2: span#ddd2.ddd.div]
+    document.getElementsByTagName('span');
+    // 取得 [span#ddd1.ddd.div, span#ddd2.ddd.div, ddd1: span#ddd1.ddd.div, ddd2: span#ddd2.ddd.div]
+    // getElementsByName() 方法会返回具有给定 name 属性的所有元素。该方法最常用于单选按钮，
+    // 因为同一字段的单选按钮必须具有相同的 name 属性才能确保把正确的值发送给服务器。
+    // 该方法也返回 HTMLCollection。但在这种情况下，namedItem() 方法只会取得第一项（因为 name 属性都一样）。
+    document.getElementsByName('ddd2'); // 取得 [span#ddd2.ddd.div]
+
+    // 4.特殊集合
+    // document 对象上还暴露几个特殊集合，这些集合也是 HTMLCollection 实例，是访问文档中公共部分的快捷方式。
+    // document.anchors 包含文档中所有带 name 属性的 <a> 元素
+    // document.links 包含文档中所有带 href 属性的 <a> 元素
+    // document.forms 包含文档中所有 <form> 元素（与 document.getElementsByTagName ("form") 返回结果相同）
+    // document.images 包含文档中所有 <img> 元素（与 document.getElementsByTagName ("img") 返回结果相同）
+    // 这些特殊集合始终存在于 HTMLDocument 对象上，与所有 HTMLCollection 对象一样，内容会实时更新以符合最新文档内容。
+    document.anchors;
+    document.links;
+    document.forms;
+    document.images;
+
+    // 6. 文档写入
+    // document 对象有一个古老的能力，即向网页输出流中写入内容。这个能力对应 4 个方法。
+    // write() 和 writeln() 方法都接收一个字符串参数，可以将这个字符串写入网页中。
+    // write() 简单地写入文本，writeln() 还会在字符串末尾追加一个换行符（\n）。
+    // 这两个方法可以用来在页面加载期间向页面中动态添加内容，经常用于动态包含外部资源，如 JS 文件。
+    // open() 和 close() 方法分别用于打开和关闭网页输出流。在调用 write() 和 writeln() 时，这两方法都不是必需的。
+    document.write("<strong>" + (new Date()).toString() + "</strong>");
+  </script>
+
+</body>
+</html>
