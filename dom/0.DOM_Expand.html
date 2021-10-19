@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM_Expand</title>
+</head>
+<body>
+  <div class="a div" id="a">a</div>
+  <div class="b div" id="b">b</div>
+  <div class="c div" id="c">
+    <span class="ddd div" id="ddd1" name='ddd1'>ddd1</span>
+    <span class="ddd div" id="ddd2" name='ddd2'>ddd2</span>
+  </div>
+
+  <script>
+    // 尽管所有浏览器厂商都理解遵循标准的重要性，但它们也都有为弥补功能缺失而为 DOM 添加专有扩展的历史。
+    // 虽然这表面上看是一件坏事，但专有扩展也为开发者提供了很多重要功能，而这些功能后来则有可能被标准化。
+
+    // 除了已经标准化的，各家浏览器还有很多未被标准化的专有扩展。这并不意味着它们将来不会被纳入标准。
+
+    // 1. children 属性
+    // children 属性是一个 HTMLCollection，只包含元素的 Element 类型的子节点。
+    // 如果元素的子节点类型全部是元素类型，那 children 和 childNodes 中包含的节点应该是一样的。
+    let bb = document.getElementById('b');
+    let cc = document.getElementById('c');
+    bb.childNodes;   // NodeList [text]
+    bb.children;     // HTMLCollection []
+    cc.childNodes;   // NodeList(5) [text, span#ddd1.ddd.div, text, span#ddd2.ddd.div, text]
+    cc.children;     // HTMLCollection(2) [span#ddd1.ddd.div, span#ddd2.ddd.div, ddd1: span#ddd1.ddd.div, ddd2: span#ddd2.ddd.div]
+
+    // 2. contains() 方法
+    // DOM 编程中经常需要确定一个元素是不是另一个元素的后代。contains() 方法，让开发者可以在不遍历
+    // DOM 的情况下获取这个信息。contains() 方法应该在要搜索的祖先元素上调用，参数是待确定的目标节点。
+    // 如果目标节点是被搜索节点的后代，contains() 返回 true，否则返回 false。
+    let ddd1 = document.getElementById('ddd1');
+    cc.contains(ddd1); // true
+    // 使用 DOM Level 3 的 compareDocumentPosition() 方法也可以确定节点间的关系。
+    // DOM Level 3 的方法会返回表示两个节点关系的位掩码。位掩码的说明略。
+
+    // 3. 滚动
+    // 虽然 HTML5 把 scrollIntoView() 标准化了，但不同浏览器中仍然有其他专有方法。
+    // 比如，scrollIntoViewIfNeeded() 作为 HTMLElement 类型的扩展可以在所有元素上调用。
+    // scrollIntoViewIfNeeded(alingCenter) 会在元素不可见的情况下，
+    // 将其滚动到窗口或包含窗口中，使其可见；如果已经在视口中可见，则这个方法什么也不做。
+    ddd1.scrollIntoViewIfNeeded();
+    // 如果将可选的参数 alingCenter 设置为 true，则浏览器会尝试将其放在视口中央。
+    // Safari、Chrome、Opera 实现了这个方法。
+    ddd1.scrollIntoViewIfNeeded(true);
+    // 考虑到 scrollIntoView() 是唯一一个所有浏览器都支持的方法，所以只用它就可以了。
+  </script>
+
+</body>
+</html>

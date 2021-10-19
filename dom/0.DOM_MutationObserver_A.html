@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM_MutationObserver_A</title>
+</head>
+<body>
+  <div class="a div" id="a">a</div>
+  <div class="b div" id="b">b</div>
+  <div class="c div" id="c">
+    <span class="ddd div" id="ddd1" name='ddd1'>ddd1</span>
+    <span class="ddd div" id="ddd2" name='ddd2'>ddd2</span>
+  </div>
+
+  <script>
+    // 不久前添加到 DOM 规范中的 MutationObserver 接口，可以在 DOM 被修改时异步执行回调。
+    // 使用 MutationObserver 可以观察整个文档、DOM 树的一部分，或某个元素。此外还可以观察
+    // 元素属性、子节点、文本，或者三者任意组合的变化。
+
+    // MutationObserver 的实例要通过调用 MutationObserver 构造函数并传入一个回调函数来创建。
+    let observer = new MutationObserver(() => console.log('DOM was mutated!'));
+
+    // 一、基本用法
+    // 1.observe() 方法
+    // 新创建的 MutationObserver 实例不会关联 DOM 的任何部分。要把这个 observer 与 DOM 关联起来，
+    // 需要使用 observe() 方法。这个方法接收两个必需的参数：要观察其变化的 DOM 节点，
+    // 以及一个 MutationObserverInit 对象。
+    // MutationObserverInit 对象用于控制观察哪些方面的变化，是一个键/值对形式配置选项的字典。
+    let observerBody = new MutationObserver(() => console.log('<body> attributes changed')); 
+    // <body> 元素上任何属性发生变化都会被这个 MutationObserver 实例发现，然后就会异步执行
+    // 注册的回调函数。<body> 元素后代的修改或其他非属性修改都不会触发回调进入任务队列。
+    // 回调函数是后执行的。这表明回调函数并非与实际的 DOM 变化同步执行。
+    observerBody.observe(document.body, { attributes: true });
+    document.body.id = 'body'; // <body> attributes changed
+
+    // 2.回调与 MutationRecord
+    // 每个回调都会收到一个 MutationRecord 实例的数组。MutationRecord 实例包含的信息包括
+    // 发生了什么变化，以及 DOM 的哪一部分受到了影响。因为回调执行之前可能同时发生多个满足观察
+    // 条件的事件，所以每次执行回调都会传入一个包含按顺序入队的 MutationRecord 实例的数组。
+    let observeA = new MutationObserver(mutationRecords => console.log(mutationRecords));
+    let aa = document.getElementById('a');
+    observeA.observe(aa, {attributes: true});
+    aa.setAttribute('title', 'just a.');  // [MutationRecord]（具体看下左）
+    aa.setAttributeNS('baz', 'foo', 'bar'); // [MutationRecord]（具体看下右）
+    // [{                                     // [{
+    //     addedNodes: []                     //     addedNodes:  []
+    //     attributeName: "title"             //     attributeName: "foo"
+    //     attributeNamespace: null           //     attributeNamespace: "baz"
+    //     nextSibling: null                  //     nextSibling: null
+    //     oldValue: null                     //     oldValue: null
+    //     previousSibling: null              //     previousSibling: null
+    //     removedNodes: []                   //     removedNodes: []
+    //     target: div#a.a.div                //     target: div#a.a.div
+    //     type: "attributes"                 //     type: "attributes"
+    // }]                                     // }]
+    // 连续修改会生成多个 MutationRecord 实例，下次回调执行时就会收到包含所有这些实例的数组，
+    // 顺序为变化事件发生的顺序。下表列出了 MutationRecord 实例的属性（共九个说明，略）。
+    // 传给回调函数的第二个参数是观察变化的 MutationObserver 的实例。
+    let observeA2 = new MutationObserver((mutationRecords, mutationObserver) =>{
+      console.log(mutationObserver);
+    });
+    observeA2.observe(aa, {attributes: true});
+    aa.setAttribute('myAtt', 'selfAtt'); // MutationObserver {}（省略 observeA 的反应）
+
+    // 3. disconnect() 方法
+    // 默认情况下，只要被观察的元素不被垃圾回收，MutationObserver 的回调就会响应 DOM 变化事件，
+    // 从而被执行。要提前终止执行回调，可以调用 disconnect() 方法。同步调用 disconnect() 之后，
+    // 不仅会停止此后变化事件的回调，也会抛弃已经加入任务队列要异步执行的回调。
+    document.body.className = 'body1'; // 无输出
+    observerBody.disconnect(); 
+    // 要想让已经加入任务队列的回调执行，可以使用 setTimeout() 让已经入列的回调执行完毕再调用 disconnect()
+    aa.setAttribute('myAtt2', 'selfAtt2');
+    setTimeout(() => {
+      observeA2.disconnect();
+      aa.setAttribute('myAtt3', 'selfAtt3'); 
+    }, 0)
+    // [MutationRecord]（具体略）
+    // MutationObserver {}
+    // [MutationRecord]（具体略）
+
+    // 4.复用 MutationObserver
+    // 多次调用 observe() 方法，可以复用一个 MutationObserver 对象观察多个不同的目标节点。
+    // 此时，MutationRecord 的 target 属性可以标识发生变化事件的目标节点。
+    let observeBC =  new MutationObserver(mutationRecords => {
+      console.log(mutationRecords.map((x) => x.target));
+    });
+    let bb = document.getElementById('b');
+    let cc = document.getElementById('c');
+    observeBC.observe(bb, {attributes: true});
+    observeBC.observe(cc, {attributes: true});
+    bb.setAttribute('myAttB', 'selfAttB');
+    cc.setAttribute('myAttC', 'selfAttC');
+    // 输出 [div#b.b.div, div#c.c.div]
+    // disconnect()方法是一个“一刀切”的方案，调用它会停止观察所有目标。
+    observerBC.disconnect();
+    bb.setAttribute('myAttB', 'selfAttB');
+    cc.setAttribute('myAttC', 'selfAttC');
+    // 无输出
+
+    // 5.重用 MutationObserver
+    // 调用 disconnect() 并不会结束 MutationObserver 的生命。还可以重新使用这个观察者，
+    // 再将它关联到新的目标节点。
+    observerBody.observe(document.body, { attributes: true });
+    document.body.id = 'body2'; // <body> attributes changed
+  </script>
+
+</body>
+</html>

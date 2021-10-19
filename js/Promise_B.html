@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise_B</title>
+</head>
+<body>
+  <script>
+    // 期约的实例方法
+    // 期约实例的方法是连接外部同步代码与内部异步代码之间的桥梁。这些方法可以访问异步操作返回的数据，
+    // 处理期约成功和失败的结果，连续对期约求值，或者添加只有期约进入终止状态时才会执行的代码。
+
+    // 1. 实现 Thenable 接口
+    // 在 ECMAScript 暴露的异步结构中，任何对象都有一个 then()方法。这个方法被认为实现了
+    // Thenable 接口。下面的例子展示了实现这一接口的最简单的类：
+    class MyThenable { 
+      then() {} 
+    } 
+    // ECMAScript 的 Promise 类型实现了 Thenable 接口。这个简化的接口跟 TypeScript 或其他包中的
+    // 接口或类型定义不同，它们都设定了 Thenable 接口更具体的形式。
+
+    // 2. Promise.prototype.then()
+    // Promise.prototype.then() 是为期约实例添加处理程序的主要方法。这个 then() 方法
+    // 接收最多两个参数：onResolved 处理程序和 onRejected 处理程序。这两个参数都是可选的，
+    // 如果提供的话，则会在期约分别进入“兑现”和“拒绝”状态时执行。
+    function onResolved(id) { setTimeout(console.log, 0, id, 'resolved') } 
+    function onRejected(id) { setTimeout(console.log, 0, id, 'rejected') }
+    let p1 = new Promise((resolve, reject) => setTimeout(resolve, 3000)); 
+    let p2 = new Promise((resolve, reject) => setTimeout(reject, 3000)); 
+    p1.then(() => onResolved('p1'), () => onRejected('p1')); 
+    p2.then(() => onResolved('p2'), () => onRejected('p2'));
+    //（3 秒后）
+    // p1 resolved 
+    // p2 rejected
+
+    // 两个处理程序参数都是可选的。而且，传给 then() 的任何非函数类型的参数都会被静默忽略。
+    // 如果想只提供 onRejected 参数，那就要在 onResolved 参数的位置上传入 undefined。
+    // 这样有助于避免在内存中创建多余的对象，对期待函数参数的类型系统也是一个交代。
+    p1.then('gobbeltygook'); // 非函数处理程序会被静默忽略，不推荐
+    p2.then(null, () => onRejected('p2')); // 不传 onResolved 处理程序的规范写法
+
+    // Promise.prototype.then() 方法返回一个新的期约实例。
+    let p3 = new Promise(() => {}); 
+    let p4 = p3.then(); 
+    setTimeout(console.log, 0, p3);        // Promise {<pending>}
+    setTimeout(console.log, 0, p4);        // Promise {<pending>}
+    setTimeout(console.log, 0, p3 === p4); // false
+
+    // 这个新期约实例基于 onResovled 处理程序的返回值构建。
+    // 换句话说，该处理程序的返回值会通过 Promise.resolve() 包装来生成新期约。
+    // 如果没有提供这个处理程序，则 Promise.resolve() 就会包装上一个期约解决之后的值。
+    // 如果没有显式的返回语句，则 Promise.resolve() 会包装默认的返回值 undefined。
+  </script>
+</body>
+</html>
