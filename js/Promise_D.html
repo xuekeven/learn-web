@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise_D</title>
+</head>
+<body>
+  <script>
+    // 期约连锁与期约合成
+
+    // 多个期约组合在一起可以构成强大的代码逻辑。这种组合可以通过两种方式实现：期约连锁与期约合成。
+    // 前者就是一个期约接一个期约地拼接，后者则是将多个期约组合为一个期约。
+
+    // 1. 期约连锁
+    // 把期约逐个地串联起来是一种非常有用的编程模式。之所以可以这样做，
+    // 是因为每个期约实例的方法（then()、catch()、finally()）都会返回一个新的期约对象，
+    // 而这个新期约又有自己的实例方法。这样连缀方法调用就可以构成所谓的“期约连锁”。
+    let p = new Promise((resolve, reject) => { 
+      console.log('first'); 
+      resolve(); 
+    });
+    p.then(() => console.log('second')) 
+     .then(() => console.log('third')) 
+     .then(() => console.log('fourth')); 
+    // first 
+    // second 
+    // third 
+    // fourth
+
+    // 上面执行了一连串同步任务。正因为如此，这种方式执行的任务没有那么有用，
+    // 毕竟分别使用 4 个同步函数也可以做到：
+    (() => console.log('first'))(); 
+    (() => console.log('second'))(); 
+    (() => console.log('third'))(); 
+    (() => console.log('fourth'))();
+
+    // 要真正执行异步任务，可以改写前面的例子，让每个执行器都返回一个期约实例。
+    // 这样就可以让每个后续期约都等待之前的期约，也就是串行化异步任务：
+    let p1 = new Promise((resolve, reject) => { 
+      console.log('p1 executor'); 
+      setTimeout(resolve, 1000); 
+    }); 
+    p1.then(() => new Promise((resolve, reject) => { 
+      console.log('p2 executor'); 
+      setTimeout(resolve, 1000); 
+    })) 
+      .then(() => new Promise((resolve, reject) => { 
+        console.log('p3 executor'); 
+        setTimeout(resolve, 1000); 
+      })) 
+      .then(() => new Promise((resolve, reject) => { 
+        console.log('p4 executor'); 
+        setTimeout(resolve, 1000); 
+      })); 
+    // p1 executor（1 秒后）
+    // p2 executor（2 秒后）
+    // p3 executor（3 秒后）
+    // p4 executor（4 秒后）
+
+    // 把生成期约的代码提取到一个工厂函数中，就可以写成这样：
+    function delayedResolve(str) {
+      return new Promise((resolve, reject) => { 
+        console.log(str); 
+        setTimeout(resolve, 1000); 
+      }); 
+    }
+    delayedResolve('p1 executor') 
+    .then(() => delayedResolve('p2 executor')) 
+    .then(() => delayedResolve('p3 executor')) 
+    .then(() => delayedResolve('p4 executor')) 
+
+    // 每个后续的处理程序都会等待前一个期约解决，然后实例化一个新期约并返回它。
+    // 这种结构可以简洁地将异步任务串行化，解决之前依赖回调的难题。假如这种情况下不使用期约：
+    function delayedExecute(str, callback = null) { 
+      setTimeout(() => { 
+        console.log(str); 
+        callback && callback(); 
+      }, 1000) 
+    }
+    delayedExecute('p1 callback', () => {
+      delayedExecute('p2 callback', () => { 
+        delayedExecute('p3 callback', () => { 
+          delayedExecute('p4 callback'); 
+        }); 
+      }); 
+    }); 
+
+    // then()、catch()、finally() 都返回期约，所以串联这些方法也很直观。同时使用这 3 个实例方法：
+    let p = new Promise((resolve, reject) => { 
+      console.log('initial promise rejects'); 
+      reject(); 
+    });
+    p.catch(() => console.log('reject handler'))
+     .then(() => console.log('resolve handler'))
+     .finally(() => console.log('finally handler')); 
+    // initial promise rejects 
+    // reject handler 
+    // resolve handler 
+    // finally handler
+
+    // 2. 期约图
+
+    // 3. Promise.all() & Promise.race()
+    // Promise 类提供两个将多个期约实例组合成一个期约的静态方法：Promise.all()、Promise.race()。
+    // 而合成后期约的行为取决于内部期约的行为。
+
+    // 3.1 Promise.all() 
+    // Promise.all() 静态方法创建的期约会在一组期约全部解决之后再解决。
+    // 这个静态方法接收一个可迭代对象，返回一个新期约。
+    let p1 = Promise.all([ Promise.resolve(), Promise.resolve() ]); 
+    let p2 = Promise.all([3, 4]); // 可迭代对象中的元素会通过 Promise.resolve()转换为期约
+    let p3 = Promise.all([]); // 空的可迭代对象等价于 Promise.resolve()
+    let p4 = Promise.all(); // 无效的语法 // TypeError: cannot read Symbol.iterator of undefined
+
+    // 合成的期约只会在每个包含的期约都解决之后才解决。如果至少有一个包含的期约待定，
+    // 则合成的期约也会待定。如果有一个包含的期约拒绝，则合成的期约也会拒绝。
+    let p5 = Promise.all([
+      Promise.resolve(), 
+      new Promise((resolve, reject) => setTimeout(resolve, 1000)) 
+    ]); 
+    setTimeout(console.log, 0, p5);                               // Promise <pending> 
+    p5.then(() => setTimeout(console.log, 0, 'all() resolved!')); // all() resolved!（大约 1 秒后）
+
+    let p6 = Promise.all([
+      new Promise(() => {})
+    ]); // 永远待定
+    setTimeout(console.log, 0, p6); // Promise <pending> 
+
+    let p7 = Promise.all([
+      Promise.resolve(), 
+      Promise.reject(), // 一次拒绝会导致最终期约拒绝
+      Promise.resolve() 
+    ]); 
+    setTimeout(console.log, 0, p7); // Promise <rejected> // Uncaught (in promise) undefined
+
+    // 如果有期约拒绝，则第一个拒绝的期约会将自己的理由作为合成期约的拒绝理由。
+    // 之后再拒绝的期约不会影响最终期约的拒绝理由。不过，这并不影响所有包含期约正常的拒绝操作。
+    // 合成的期约会静默处理所有包含期约的拒绝操作。
+    let p8 = Promise.all([ 
+      Promise.reject(3), 
+      // 虽然只有第一个期约的拒绝理由会进入 
+      new Promise((resolve, reject) => setTimeout(reject, 1000))
+      // 拒绝处理程序，第二个期约的拒绝也会被静默处理，不会有错误跑掉
+    ]); 
+    p8.catch((reason) => setTimeout(console.log, 0, reason)); // 3 // 没有未处理的错误
+
+    // 3.2 Promise.race()
+    // Promise.race() 静态方法返回一个包装期约，是一组集合中最先解决或拒绝的期约的镜像。
+    // 这个方法接收一个可迭代对象，返回一个新期约。
+    let pp1 = Promise.race([ Promise.resolve(), Promise.resolve() ]); 
+    let pp2 = Promise.race([3, 4]); // 可迭代对象中的元素会通过 Promise.resolve()转换为期约
+    let pp3 = Promise.race([]);  // 空的可迭代对象等价于 new Promise(() => {}) 
+    let pp4 = Promise.race(); // 无效的语法 // TypeError: cannot read Symbol.iterator of undefined
+  
+    // Promise.race() 不会对解决或拒绝的期约区别对待。无论是解决还是拒绝，
+    // 只要是第一个落定的期约，Promise.race() 就会包装其解决值或拒绝理由并返回新期约。
+    let pp5 = Promise.race([ 
+      Promise.resolve(3), // 解决先发生，超时后的拒绝被忽略
+      new Promise((resolve, reject) => setTimeout(reject, 1000)) 
+    ]); 
+    setTimeout(console.log, 0, pp5); // Promise <resolved>: 3 
+    
+    let pp6 = Promise.race([ 
+      Promise.reject(4), // 拒绝先发生，超时后的解决被忽略
+      new Promise((resolve, reject) => setTimeout(resolve, 1000)) 
+    ]); 
+    setTimeout(console.log, 0, pp6); // Promise <rejected>: 4 
+    
+    let pp7 = Promise.race([ 
+      Promise.resolve(5), // 迭代顺序决定了落定顺序
+      Promise.resolve(6), 
+      Promise.resolve(7) 
+    ]);
+    setTimeout(console.log, 0, pp7); // Promise <resolved>: 5
+
+    // 如果有一个期约拒绝，只要它是第一个落定的，就会成为拒绝合成期约的理由。之后再拒绝的期约
+    // 不会影响最终期约的拒绝理由。不过，这并不影响所有包含期约正常的拒绝操作。
+    // 与 Promise.all() 类似，合成的期约会静默处理所有包含期约的拒绝操作。
+    let p = Promise.race([ 
+      Promise.reject(3), 
+      new Promise((resolve, reject) => setTimeout(reject, 1000)) 
+      // 虽然只有第一个期约的拒绝理由会进入拒绝处理程序，第二个期约的拒绝也会被静默处理，不会有错误跑掉
+    ]); 
+    p.catch((reason) => setTimeout(console.log, 0, reason)); // 3 // 没有未处理的错误
+
+    // 4. 串行期约合成
+    // 到目前为止，我们讨论期约连锁一直围绕期约的串行执行，忽略了期约的另一个主要特性：
+    // 异步产生值并将其传给处理程序。基于后续期约使用之前期约的返回值来串联期约是期约的基本功能。
+    // 这很像函数合成，即将多个函数合成为一个函数。
+    function addTwo1(x) {return x + 2;} 
+    function addThree1(x) {return x + 3;} 
+    function addFive1(x) {return x + 5;} 
+    function addTen1(x) { return addFive1(addTwo1(addThree1(x))); } 
+    console.log(addTen1(8)); // 18
+
+    // 期约也可以像这样合成起来，渐进地消费一个值，并返回一个结果：
+    function addTwo2(x) {return x + 2;} 
+    function addThree2(x) {return x + 3;} 
+    function addFive2(x) {return x + 5;} 
+    function addTen2(x) {
+      return Promise.resolve(x)
+                    .then(addTwo2)
+                    .then(addThree2)
+                    .then(addFive2); 
+    } 
+    addTen2(8).then(console.log); // 18
+
+    // 使用 Array.prototype.reduce() 可以写成更简洁的形式：
+    function addTwo3(x) {return x + 2;} 
+    function addThree3(x) {return x + 3;} 
+    function addFive3(x) {return x + 5;} 
+    function addTen3(x) { 
+      return [addTwo3, addThree3, addFive3] 
+      .reduce((promise, fn) => promise.then(fn), Promise.resolve(x)); 
+    } 
+    addTen3(8).then(console.log); // 18
+
+    // 这种模式可以提炼出一个通用函数，可以把任意多个函数作为处理程序
+    // 合成一个连续传值的期约连锁。这个通用的合成函数可以这样实现：
+    function addTwo4(x) {return x + 2;} 
+    function addThree4(x) {return x + 3;} 
+    function addFive4(x) {return x + 5;} 
+    function compose(...fns) { 
+      return (x) => fns.reduce((promise, fn) => promise.then(fn), Promise.resolve(x)) 
+    } 
+    let addTen4 = compose(addTwo4, addThree4, addFive4);
+    addTen4(8).then(console.log); // 18
+  </script>
+</body>
+</html>

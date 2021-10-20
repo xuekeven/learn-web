@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async&Await_A</title>
+</head>
+<body>
+  <script>
+    // 异步函数
+
+    // ES8 的 async/await 旨在解决利用异步结构组织代码的问题。为此，ECMAScript 对函数进行了扩展，
+    // 为其增加了两个新关键字：async 和 await。
+
+    // 1. async
+    // async 关键字用于声明异步函数。这个关键字可以用在函数声明、函数表达式、箭头函数和方法上：
+    async function foo() {} 
+    let bar = async function() {}; 
+    let baz = async () => {}; 
+    class Qux { 
+      async qux() {} 
+    }
+    // 使用 async 关键字可以让函数具有异步特征，但总体上其代码仍然是同步求值的。而在参数或闭包方面，
+    // 异步函数仍然具有普通 JavaScript 函数的正常行为。
+    async function foo() { 
+      console.log(1); 
+    }
+    foo(); 
+    console.log(2);
+    // 1 
+    // 2
+  </script>
+</body>
+</html>
