@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>链接LVHT</title>
+  <style>
+    div.menu-bar ul ul {
+      display: none;
+    } 
+    div.menu-bar li:hover > ul {
+      display: block;
+    }
+    a:link {
+      color: khaki;
+    }
+    a:visited {
+      color: lawngreen;
+    }
+    a:hover {
+      color: lightcoral;
+    }
+    a:active {
+      color: magenta;
+    }
+  </style>
+</head>
+<body>
+  <div id="try">
+    <a href="http://www.baidu.com">百度</a>
+  </div>
+  <div class="menu-bar">
+    <ul>
+      <li>
+        <a href="example.html">Menu</a>
+        <ul>
+          <li>
+            <a href="example.html">Link</a>
+          </li>
+          <li>
+            <a class="menu-nav" href="example.html">Sub</a>
+            <ul>
+              <li>
+                <a class="menu-nav" href="example.html">Submenu</a>
+                <ul>
+                  <li><a href="example.html">Link</a></li>
+                  <li><a href="example.html">Link</a></li>
+                  <li><a href="example.html">Link</a></li>
+                  <li><a href="example.html">Link</a></li>
+                </ul>
+              </li>
+              <li><a href="example.html">Link</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

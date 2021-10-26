@@ -1,0 +1,82 @@
+<!-- 两栏1-1（自适应在左，固定在右） -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>两栏1-1</title>
+  <style>
+    #content {
+      height: 500px;
+      background-color: pink;
+      color: honeydew;
+    }
+    #sidebar {
+      height: 500px;
+      background-color: green;
+      color: honeydew;
+    }
+
+    /* 浮动 */
+    /* #content {
+      float: left;
+      width: calc(100% - 300px);
+    }
+    #sidebar {
+      float: left;
+      width: 300px;
+    } */
+
+    /* 定位 */
+    /* #wrap {
+      position: relative;
+    }
+    #content {
+      margin-right: 300px;
+    }
+    #sidebar {
+      position: absolute;
+      width: 300px;
+      right: 0;
+      top: 0;
+    } */
+
+    /* 表格布局 */
+    /* #wrap {
+      display: table;
+      width: 100%;
+    }
+    #content {
+      display: table-cell;
+    }
+    #sidebar {
+      display: table-cell;
+      width: 300px;
+    } */
+
+    /* 弹性布局 */
+    /* #wrap {
+      display: flex;
+    }
+    #content {
+      flex: 1;
+    }
+    #sidebar {
+      width: 300px;
+    } */
+
+    /* 网格布局 */
+    /* #wrap {
+      display: grid;
+      grid-template-columns: 1fr 300px;  
+    } */
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="content">自适应区</div>
+    <div id="sidebar">固定宽度区</div>
+  </div>
+</body>
+</html>
