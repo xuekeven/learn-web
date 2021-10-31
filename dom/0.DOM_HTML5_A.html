@@ -28,7 +28,7 @@
     // 根据给定的一个或一组类名查询元素，等等。为了适应开发者和他们对 class 属性的认可，
     // HTML5 增加了一些特性以方便使用 CSS 类。
 
-    // 1.getElementsByClassName() 方法
+    // 1. getElementsByClassName() 方法
     // getElementsByClassName() 方法是 HTML5 新增的最受欢迎的一个方法，暴露在 document 对象和所有
     // HTML 元素上。这个方法脱胎于基于原有 DOM 特性实现该功能的 JavaScript 库，提供了性能高好的原生实现。
     // getElementsByClassName() 方法接收一个参数，即包含一个或多个类名的字符串，返回类名中
@@ -39,7 +39,7 @@
     // 所有匹配的元素，而在特定元素上调用则返回该元素后代中匹配的元素。以 HTMLCollection 对象形式返回。
     // 如果要给包含特定类（而不是特定 ID 或标签）的元素添加事件处理程序，使用这个方法会很方便。
 
-    // 2.classList 属性
+    // 2. classList 属性
     // 要操作类名，可以通过 className 属性实现添加、删除和替换。但 className 是一个字符串，
     // 所以每次操作之后都需要重新设置这个值才能生效，即使只改动了部分字符串也一样。
     // HTML5 通过给所有元素增加 classList 属性为这些操作提供了更简单也更安全的实现方式。
@@ -66,7 +66,7 @@
     // 二、焦点管理
     // HTML5 增加了辅助 DOM 焦点管理的功能。
 
-    // 1.document.activeElement
+    // 1. document.activeElement
     // 首先是 document.activeElement，始终包含当前拥有焦点的 DOM 元素。
     // 页面加载时，可以通过用户输入（按 Tab 键或代码中使用 focus()方法）让某个元素自动获得焦点。
     // 默认情况下，document.activeElement 在页面刚加载完之后会设置为 document.body。
@@ -75,7 +75,7 @@
     input.focus();
     document.activeElement; // <input id="input" type="button" value="GO">
 
-    // 2.document.hasFocus() 
+    // 2. document.hasFocus() 
     // document.hasFocus() 方法，该方法返回布尔值，表示文档是否拥有焦点。
     // 确定文档是否获得了焦点，就可以帮助确定用户是否在操作页面。
     document.hasFocus();
@@ -89,7 +89,7 @@
     // 这些变化同样基于所有浏览器事实上都已经支持的专有扩展。为此，即使这些扩展的标准化相对较晚，
     // 很多浏览器也早就实现了相应的功能。
 
-    // 1.readyState 属性
+    // 1. readyState 属性
     // readyState 属性是 IE4 最早添加到 document 对象上的属性，后来其他浏览器也都开始支持这个属性。
     // 最终，HTML5 将这个属性写进了标准。document.readyState 属性有两个可能的值：
     // loading，表示文档正在加载；complete，表示文档加载完成。
@@ -97,14 +97,14 @@
     // 在这个属性得到广泛支持以前，通常要依赖 onload 事件处理程序设置一个标记，表示文档加载完了。
     document.readyState; // 'complete'
 
-    // 2.compatMode 属性
+    // 2. compatMode 属性
     // 自从 IE6 提供了以标准或混杂模式渲染页面的能力之后，检测页面渲染模式成为一个必要的需求。
     // IE 为 document 添加了 compatMode 属性，这个属性唯一的任务是指示浏览器当前处于什么渲染模式。
     // HTML5 最终也把 compatMode 属性的实现标准化了。标准模式下，document.compatMode 值是"CSS1Compat"，
     // 而在混杂模式下，document.compatMode 值是"BackCompat"。
     document.compatMode; // 'CSS1Compat'
 
-    // 3.head 属性
+    // 3. head 属性
     // 作为对 document.body（指向文档的<body>元素）的补充，
     // HTML5 增加了 document.head 属性，指向文档的 <head> 元素。
     document.head; // 取得 <head> 标签

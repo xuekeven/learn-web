@@ -1,4 +1,4 @@
-//遍历一个节点集合设置有关元素的样式
+// 遍历一个节点集合设置有关元素的样式
 function stripeTables() {
   var tables = document.getElementsByTagName('table');
   var odd,rows;
@@ -15,7 +15,7 @@ function stripeTables() {
     }
   }
 }
-//给元素改变属性节点class值的函数
+// 给元素改变属性节点class值的函数
 function addClass(element,value) {
   if (!element.className) {
     element.className = value;

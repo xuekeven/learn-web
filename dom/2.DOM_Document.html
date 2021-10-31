@@ -27,7 +27,7 @@
     // Document 类型可以表示 HTML 页面或其他 XML 文档，但最常用的还是通过 HTMLDocument 的实例
     // 取得 document 对象。document 对象可用于获取关于页面的信息以及操纵其外观和底层结构。
 
-    // 1.文档子节点
+    // 1. 文档子节点
     // Document 节点的子节点可以是 DocumentType、Element、ProcessingInstruction、Comment，
     // 也提供了两个访问子节点的快捷方式：documentElement 属性和 doctype 属性。
     // documentElement 属性，指向 HTML 页面中的 <html> 元素；doctype 属性，指向 <!doctype> 元素。
@@ -40,7 +40,7 @@
     document.firstChild;      // 取得 <!DOCTYPE html>
     document.childNodes;      // 取得 [<!DOCTYPE html>, html]
 
-    // 2.文档信息
+    // 2. 文档信息
     // document 作为 HTMLDocument 实例，还有一些 Document 上没有的属性。这些属性提供浏览器所加载网页的信息。
     // title 属性包含 <title> 元素中的文本，通常显示在浏览器窗口或标签页的标题栏。通过 title 属性可以
     // 读写页面的标题，修改后的标题也会反映在浏览器标题栏上。但是修改 title 属性并不会改变 <title> 元素。
@@ -53,7 +53,7 @@
     document.domain;                   // 取得域名
     document.referrer;                 // 取得来源
 
-    // 3.定位元素
+    // 3. 定位元素
     // 使用 DOM 最常见的情形可能就是获取某个或某组元素的引用，然后对它们执行某些操作。
     // document 对象上暴露了一些方法，可以实现这些操作。
     // getElementById() 方法接收一个参数，即要获取元素的 ID，如果找到了则返回这个元素，没找到则返回 null。
@@ -76,7 +76,7 @@
     // 该方法也返回 HTMLCollection。但在这种情况下，namedItem() 方法只会取得第一项（因为 name 属性都一样）。
     document.getElementsByName('ddd2'); // 取得 [span#ddd2.ddd.div]
 
-    // 4.特殊集合
+    // 4. 特殊集合
     // document 对象上还暴露几个特殊集合，这些集合也是 HTMLCollection 实例，是访问文档中公共部分的快捷方式。
     // document.anchors 包含文档中所有带 name 属性的 <a> 元素
     // document.links 包含文档中所有带 href 属性的 <a> 元素

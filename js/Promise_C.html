@@ -14,13 +14,10 @@
     // 当期约进入落定状态时，与该状态相关的处理程序仅仅会被排期，而非立即执行。跟在添加这个处理
     // 程序的代码之后的同步代码一定会在处理程序之前先执行。即使期约一开始就是与附加处理程序关联的状态，
     // 执行顺序也是这样的。这个特性由 JavaScript 运行时保证，被称为“非重入”（non-reentrancy）特性。
-    
-    // 创建解决的期约
-    let p = Promise.resolve(); 
-    // 添加解决处理程序 // 直觉上，这个处理程序会等期约一解决就执行
-    p.then(() => console.log('onResolved handler')); 
-    // 同步输出，证明 then()已经返回
-    console.log('then() returns'); // 实际的输出：
+    let p = Promise.resolve(); // 创建解决的期约
+    p.then(() => console.log('onResolved handler')); // 直觉上，这个处理程序会等期约一解决就执行 
+    console.log('then() returns'); // 同步输出，证明 then() 已经返回
+    // 实际的输出：
     // then() returns 
     // onResolved handler
 
@@ -55,36 +52,32 @@
     // 在执行函数中，解决的值和拒绝的理由是分别作为 resolve() 和 reject() 的第一个参数往后传的。
     // 然后，这些值又会传给它们各自的处理程序，作为 onResolved 或 onRejected 处理程序的唯一参数。
     let p3 = new Promise((resolve, reject) => resolve('foo')); 
-    p3.then((value) => console.log(value)); // foo 
     let p4 = new Promise((resolve, reject) => reject('bar')); 
+    p3.then((value) => console.log(value));    // foo 
     p4.catch((reason) => console.log(reason)); // bar
 
-    // Promise.resolve() 和 Promise.reject() 在被调用时就会接收解决值和拒绝理由。同样地，它们返回的期约
-    // 也会像执行器一样把这些值传给 onResolved 或 onRejected 处理程序。
+    // Promise.resolve() 和 Promise.reject() 在被调用时就会接收解决值和拒绝理由。
+    // 同样地，它们返回的期约也会像执行器一样把这些值传给 onResolved 或 onRejected 处理程序。
     let p5 = Promise.resolve('foo'); 
-    p5.then((value) => console.log(value));    // foo 
     let p6 = Promise.reject('bar'); 
+    p5.then((value) => console.log(value));    // foo 
     p6.catch((reason) => console.log(reason)); // bar
 
     // 8. 拒绝期约与拒绝错误处理
     // 拒绝期约类似于 throw() 表达式，因为它们都代表一种程序状态，即需要中断或者特殊处理。
     // 在期约的执行函数或处理程序中抛出错误会导致拒绝，对应的错误对象会成为拒绝的理由。
     // 以下这些期约都会以一个错误对象为由被拒绝：
-    let pp1 = new Promise((resolve, reject) => reject(Error('foo'))); 
-    // Uncaught (in promise) Error: foo
-    let pp2 = new Promise((resolve, reject) => { throw Error('foo'); }); 
-    // Uncaught (in promise) Error: foo
-    let pp3 = Promise.resolve().then(() => { throw Error('foo'); }); 
-    let pp4 = Promise.reject(Error('foo')); 
-    // Uncaught (in promise) Error: foo 
-    // Uncaught (in promise) Error: foo
+    let pp1 = new Promise((resolve, reject) => reject(Error('foo')));    // Uncaught (in promise) Error: foo
+    let pp2 = new Promise((resolve, reject) => { throw Error('foo'); }); // Uncaught (in promise) Error: foo
+    let pp3 = Promise.resolve().then(() => { throw Error('foo'); });     // Uncaught (in promise) Error: foo 
+    let pp4 = Promise.reject(Error('foo'));                              // Uncaught (in promise) Error: foo
     setTimeout(console.log, 0, pp1); // Promise {<rejected>: Error: foo}
     setTimeout(console.log, 0, pp2); // Promise {<rejected>: Error: foo}
     setTimeout(console.log, 0, pp3); // Promise {<rejected>: Error: foo}
     setTimeout(console.log, 0, pp4); // Promise {<rejected>: Error: foo}
 
-    // 期约可以以任何理由拒绝，包括 undefined，但最好统一使用错误对象。这样做主要是因为创建
-    // 错误对象可以让浏览器捕获错误对象中的栈追踪信息，而这些信息对调试是非常关键的。
+    // 期约可以以任何理由拒绝，包括 undefined，但最好统一使用错误对象。这样做主要是因为创建错误对象
+    // 可以让浏览器捕获错误对象中的栈追踪信息，而这些信息对调试是非常关键的。
 
     // 所有错误都是异步抛出且未处理的，通过错误对象捕获的栈追踪信息展示了错误发生的路径。
     // 注意错误的顺序：Promise.resolve().then() 的错误最后才出现，这是因为它需要在运行时
@@ -97,15 +90,18 @@
     console.log('bar'); 
     // bar 
     // Uncaught (in promise) Error: foo
+
     throw Error('foo'); 
     console.log('bar'); // 这一行不会执行
     // Uncaught Error: foo
 
-    // 异步错误只能通过异步的 onRejected 处理程序捕获
-    Promise.reject(Error('foo')).catch((e) => {});
+    // 如前所示，异步错误只能通过异步的 onRejected 处理程序捕获
+    // 正确：
+    Promise.reject(Error('foo')).catch((e) => {}); 
     // Promise {<fulfilled>: undefined}
+    // 不正确：
     try { 
-    Promise.reject(Error('foo'));
+      Promise.reject(Error('foo'));
     } catch(e) {}
     // Uncaught (in promise) Error: foo
     // Promise {<rejected>: Error: foo}

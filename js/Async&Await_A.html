@@ -56,6 +56,11 @@
     // 333
     // 222
 
+    // 得到返回的期约
+    console.log(fooAsync3()); 
+    // 11
+    // Promise {<fulfilled>: 22}
+
     // 异步函数的返回值期待（但实际上并不要求）一个实现 thenable 接口的对象，但常规的值也可以。
     // 如果返回的是实现 thenable 接口的对象，则这个对象可以由提供给 then() 的处理程序“解包”。
     // 如果不是，则返回值就被当作已经解决的期约。
@@ -107,15 +112,29 @@
     // 2. await
     // 因为异步函数主要针对不会马上完成的任务，所以自然需要一种暂停和恢复执行的能力。
     // 使用 await 关键字可以暂停异步函数代码的执行，等待期约解决。
-    let p = new Promise((resolve, reject) => setTimeout(resolve, 1000, 3)); 
-    p.then((x) => console.log(x)); // 3 
+    let p = new Promise((resolve, reject) => {
+      setTimeout(resolve, 1000, 3);
+      console.log('promiseVSawait1');
+    });
+    p.then((x) => console.log(x));
+    console.log('promiseVSawait2');
+    // promiseVSawait1
+    // promiseVSawait2
+    // 1 秒后 // 3 
 
     // 使用 async/await 可以写成这样：
     async function fooAwait() {
-      let p = new Promise((resolve, reject) => setTimeout(resolve, 1000, 3)); 
+      let p = new Promise((resolve, reject) => {
+        setTimeout(resolve, 1000, 3);
+        console.log('awaitVSpromise1');
+      });
       console.log(await p); 
     }
-    fooAwait1(); // 3
+    fooAwait(); 
+    console.log('awaitVSpromise2');
+    // awaitVSpromise1
+    // awaitVSpromise2
+    // 1 秒后 // 3
 
     // await 关键字会暂停执行异步函数后面的代码，让出 JavaScript 运行时的执行线程。这个行为与
     // 生成器函数中的 yield 关键字是一样的。await 关键字同样是尝试“解包”对象的值，然后将这个值
@@ -125,7 +144,7 @@
       console.log(await Promise.resolve('foo')); // 异步打印"foo" 
     } 
     fooAwait1(); // foo 
-    
+
     async function fooAwait2() { 
       return await Promise.resolve('bar'); // 异步打印"bar" 
     } 
@@ -174,7 +193,7 @@
     // 333333
     // 222222
 
-    // 单独的 Promise.reject()不会被异步函数捕获，而会抛出未捕获错误。
+    // 单独的 Promise.reject() 不会被异步函数捕获，而会抛出未捕获错误。
     // 不过，对拒绝的期约使用 await 则会释放（unwrap）错误值（将拒绝期约返回）：
     async function fAwait2() { 
       console.log(1111111); 

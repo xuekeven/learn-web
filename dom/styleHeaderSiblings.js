@@ -1,4 +1,4 @@
-//根据元素在节点树里的位置来设置样式 
+// 根据元素在节点树里的位置来设置样式
 function styleHeaderSiblings() {
   if (!document.getElementsByTagName) return false;
   var elem;
@@ -8,7 +8,7 @@ function styleHeaderSiblings() {
     elem.style.fontWeight = 'bold';
   }
 }
-//判断下一个节点是不是元素节点，并直到找出元素节点
+// 判断下一个节点是不是元素节点，并直到找出元素节点
 function getNextElement(node) {
   if (node.nodeType == 1) return node;
   if (node.nextSibling) return getNextElement(node.nextSibling);

@@ -11,15 +11,9 @@
     // 停止和恢复执行
 
     // 使用 await 关键字之后的区别其实比看上去的还要微妙一些
-    async function foo() { 
-      console.log(await Promise.resolve('foo1')); 
-    } 
-    async function bar() { 
-      console.log(await 'bar1'); 
-    } 
-    async function baz() { 
-      console.log('baz1'); 
-    } 
+    async function foo() { console.log(await Promise.resolve('foo1')) } 
+    async function bar() { console.log(await 'bar1') } 
+    async function baz() { console.log('baz1') } 
     foo(); 
     bar(); 
     baz(); 
@@ -29,9 +23,7 @@
     
     // async/await 中真正起作用的是 await。async 关键字，无论从哪方面来看，都不过是一个标识符。
     // 毕竟，异步函数如果不包含 await 关键字，其执行基本上跟普通函数没有什么区别：
-    async function foo2() { 
-      console.log(2); 
-    } 
+    async function foo2() { console.log(2) } 
     console.log(1); 
     foo2(); 
     console.log(3);
@@ -39,48 +31,135 @@
     // 2 
     // 3
 
-    // 要完全理解 await 关键字，必须知道它并非只是等待一个值可用那么简单。JavaScript 运行时
-    // 在碰到 await 关键字时，会记录在哪里暂停执行。等到 await 右边的值可用了，
+    // 要完全理解 await 关键字，必须知道它并非只是等待一个值可用那么简单。
+    // JavaScript 运行时在碰到 await 关键字时，会记录在哪里暂停执行。等到 await 右边的值可用了，
     // JavaScript 运行时会向消息队列中推送一个任务，这个任务会恢复异步函数的执行。
     // 因此，即使 await 后面跟着一个立即可用的值，函数的其余部分也会被异步求值。
-    async function foo3() { 
-      console.log(2); 
+    async function foo3() {
+      console.log(1); 
       await null; 
-      console.log(4); 
-    }
-    console.log(1); 
-    foo3(); 
-    console.log(3);
-    // 1 
-    // 2 
-    // 3 
-    // 4
-
-    // 如果 await 后面是一个期约，则问题会稍微复杂一些：
-    async function foo11() {
       console.log(2); 
-      console.log(await Promise.resolve(8)); 
-      console.log(9); 
+    }
+    console.log(3); 
+    foo3(); 
+    console.log(4);
+    // 3
+    // 1
+    // 4
+    // 2
+
+    // 如果 await 后面是一个期约，也是如此：
+    async function foo11() {
+      console.log(1); 
+      console.log(await Promise.resolve(2)); 
+      console.log(3); 
     } 
     async function bar11() {
       console.log(4); 
-      console.log(await 6); 
-      console.log(7); 
+      console.log(await 5); 
+      console.log(6); 
     } 
-    console.log(1); 
+    console.log(7); 
     foo11(); 
-    console.log(3); 
+    console.log(8); 
     bar11(); 
-    console.log(5);
+    console.log(9);
+    // 7
     // 1
+    // 8
+    // 4
+    // 9
     // 2
     // 3
-    // 4
     // 5
-    // 8
-    // 9
     // 6
-    // 7
+
+    // 补充：
+
+    // 1. 很多人以为 await 会一直等待之后的表达式执行完之后才会继续执行后面的代码，
+    // 但实际上 await 是一个让出线程的标志。在 async 函数当中，遇到 await 关键字后，
+    // 先将 await 关键字后面的表达式会先执行一遍（比如 await Fn() 中先执行 Fn），
+    // 然后再跳出整个 async 函数来执行后面的代码。等本轮事件循环执行完了之后，
+    // 再跳回到 async 函数中等待 await 关键字后面表达式的返回值，最后继续执行 await 关键字之后的代码。
+    // （即先将 await 关键字后面的表达式会先执行一遍，然后将 await 关键字之后的代码放入微任务队列）
+    // 2. 正常情况下，await 命令后面跟着的是期约 Promise，
+    // 如果不是的话，也会被转换成一个立即的 Promise.resolve()。
+    // 3. 实际开发中，对于并行的异步操作我们通常更关注结果，而不依赖执行顺序。
+    async function compare1async() {
+      console.log('compare11async');
+      await console.log('compare12async');
+      console.log('compare13async');
+    }
+    compare1async();
+    console.log('compare14async');
+    // compare11async
+    // compare12async
+    // compare14async
+    // compare13async
+
+    async function compare2async() {
+      console.log('compare21async');
+      console.log(await 'compare22async');
+      console.log('compare23async');
+    }
+    compare2async();
+    console.log('compare24async');
+    // compare21async
+    // compare24async
+    // compare22async
+    // compare23async
+
+    const compare1promise = new Promise((resolve, reject) => {
+      console.log('compare11promise');
+      resolve('compare12promise');
+      console.log('compare13promise');
+    })
+    compare1promise.then(res => {
+      console.log(res);
+    })
+    console.log('compare14promise');
+    // compare11promise
+    // compare13promise
+    // compare14promise
+    // compare12promise
+
+    const compare2promise = new Promise((resolve, reject) => {
+      console.log('compare21promise');
+    })
+    // compare21promise
+
+    function testSometing() {
+      console.log("testSomething");
+      return "return testSomething";
+    }
+    async function testAsync() {
+      console.log("testAsync");
+      return Promise.resolve("hello async");
+    }
+    async function test() {
+      console.log("test start...");
+      const testFn1 = await testSometing();
+      console.log(testFn1);
+      const testFn2 = await testAsync();
+      console.log(testFn2);
+      console.log('test end...');
+    }
+    test();
+    var promiseFn = new Promise((resolve)=> { 
+      console.log("promise START...");
+      resolve("promise RESOLVE");
+    });
+    promiseFn.then((val)=> console.log(val));
+    console.log("===END===");
+    // test start...
+    // testSomething
+    // promise START...
+    // ===END===
+    // return testSomething
+    // testAsync
+    // promise RESOLVE
+    // hello async
+    // test end...
 
     // 异步函数策略
 

@@ -1,4 +1,4 @@
-//设置位置信息
+// 设置位置信息
 function positionMessage() {
   if (!document.getElementById('message')) return false;
 

@@ -1,14 +1,14 @@
-//移动位置信息
+// 移动位置信息
 function moveElement(elementID,final_x,final_y,interval) {
   if (!document.getElementById(elementID)) return false;
   var elem = document.getElementById(elementID);
   
-  //清除不必要的函数队列
+  // 清除不必要的函数队列
   if (elem.movement) {
     clearTimeout(elem.movement);
   }
 
-  //检查
+  // 检查
   if (!elem.style.left) elem.style.left = '0px';
   if (!elem.style.top) elem.style.top = '0px';
   

@@ -29,7 +29,7 @@
     // 在 HTML 中，元素标签名始终以全大写表示；在 XML（含 XHTML）中，标签名始终与源代码中的大小写一致。
     // 如果不确定脚本是在 HTML 文档还是 XML 文档中运行，最好将标签名转换为小写形式，以便于比较。
 
-    // 1.HTML 元素
+    // 1. HTML 元素
     // 所有 HTML 元素都通过 HTMLElement 类型表示，包括其直接实例和间接实例。
     // HTMLElement 继承 Element 并增加一些属性。
     // 每个属性都对应下列五个属性之一，它们是所有 HTML 元素上都有的标准属性：
@@ -54,7 +54,7 @@
     // 修改 title 只会在鼠标移到这个元素上时才会反映出来；修改 dir 会导致页面文本立即向左或向右对齐；
     // 修改 className 会立即反映应用到新类名的 CSS 样式（如果定义了不同的样式）。
 
-    // 2.取得属性
+    // 2. 取得属性
     // 每个元素都有零个或多个属性，通常用于为元素或其内容附加更多信息。
     // 与属性相关 DOM 方法主要有 3 个：getAttribute()、setAttribute()、removeAttribute()。
     // 这些方法主要用于操纵属性，包括在 HTMLElement 类型上定义的属性。
@@ -73,7 +73,7 @@
     // 自定义属性，不会成为 DOM 对象的属性。
     // 通过 DOM 对象访问的属性中有两个返回的值跟使用 getAttribute() 取得的值不一样。
 
-    // 3.设置属性
+    // 3. 设置属性
     // 与 getAttribute() 配套的方法是 setAttribute()，这个方法接收两个参数：要设置的属性名
     // 和属性的值。如果属性已经存在，则 setAttribute() 会以指定的值替换原来的值；
     // 如果属性不存在，则 setAttribute() 会以指定的值创建该属性。
@@ -91,13 +91,13 @@
     bb.getAttribute('class');   // 'b div bdiv'
     bb.getAttribute('setAtt');  // 'setBySelfC'
 
-    // 4.删除属性
+    // 4. 删除属性
     // removeAttribute() 用于从元素中删除属性。这样不单单是清除属性的值，而是会把整个属性
     // 完全从元素中去掉。这个方法用得并不多，但在序列化 DOM 元素时可以通过它控制要包含的属性。
     let aa = document.getElementById('a');
     aa.removeAttribute('id');
 
-    // 5.attributes 属性
+    // 5. attributes 属性
     // Element 类型是唯一使用 attributes 属性的 DOM 节点类型。
     // attributes 属性包含一个 NamedNodeMap 实例，是一个类似 NodeList 的“实时”集合。
     // 元素的每个属性都表示为一个 Attr 节点，并保存在这个 NamedNodeMap 对象中。NamedNodeMap 对象包含方法：
@@ -126,7 +126,7 @@
     // attributes 属性最有用的场景是需要迭代元素上所有属性的时候。这时候往往是要把 DOM 结构序列
     // 化为 XML 或 HTML 字符串。HTML 或 XML 代码中属性出现的顺序不一定与 attributes 中的顺序一致。
 
-    // 6.创建元素
+    // 6. 创建元素
     // 可以使用 document.createElement() 方法创建新元素。这个方法接收一个参数，即要创建元素的标签名。
     // 在 HTML 文档中，标签名是不区分大小写的，而 XML 文档（包括 XHTML）是区分大小写的。
     // 使用 createElement()方法创建新元素的同时也会将其 ownerDocument 属性设置为 document。
@@ -140,7 +140,7 @@
     div.class = 'newdiv div';
     document.body.appendChild(div);
 
-    // 7.元素后代
+    // 7. 元素后代
     // 元素可以拥有任意多个子元素和后代元素，因为元素本身也可以是其他元素的子元素。
     // childNodes 属性包含元素所有的子节点，这些子节点可能是其他元素、文本节点、注释或处理指令。
     // 不同浏览器在识别这些节点时的表现有明显不同，使用 childNodes 属性返回是 NodeList 对象。
@@ -149,7 +149,6 @@
     // 取得 [text, span#someOtherId.ft, text, span#ddd2.ddd.div.dd2, text]
     // cc 元素包含 5 个子元素，2 个 <span> 元素，3 个 Text 节点（表示 <span> 元素周围的空格）。
     // 如果把元素之间的空格删掉，则元素间不会换行，而是紧凑无间隙。
-    
   </script>
 
 </body>

@@ -1,4 +1,6 @@
 <!-- 三栏圣杯布局 -->
+<!-- 显示：自适应高度固定宽度，在左右；自适应宽度高度，在中 -->
+<!-- 代码：自适应宽度高度，在前；自适应高度固定宽度，在中后 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -31,13 +33,13 @@
       .main { /* 设置中间栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 100%; /* 中间栏始终占满窗口 */
-        min-height: 130px; /* 高度 */
+        height: 130px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
         background-color: blue; /* 背景颜色 */
       }
       .left { /* 设置左栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 200px; /* 固定宽度 */
-        min-height: 130px; /* 高度 */
+        height: 130px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
         background-color: red; /* 背景颜色 */
         margin-left: -100%;  /* 使用负外边距移动left（会导致遮挡main） */
         position: relative; /* 使用绝对定位来移动left */
@@ -46,7 +48,7 @@
       .right { /* 设置右栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 200px; /* 固定宽度 */
-        min-height: 130px; /* 高度 */
+        height: 130px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
         background-color: yellow; /* 背景颜色 */
         margin-left: -200px; /* 使用负外边距移动right（会导致遮挡main） */
         position: relative; /* 使用绝对定位来移动right */

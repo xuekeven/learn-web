@@ -23,7 +23,7 @@
     let observer = new MutationObserver(() => console.log('DOM was mutated!'));
 
     // 一、基本用法
-    // 1.observe() 方法
+    // 1. observe() 方法
     // 新创建的 MutationObserver 实例不会关联 DOM 的任何部分。要把这个 observer 与 DOM 关联起来，
     // 需要使用 observe() 方法。这个方法接收两个必需的参数：要观察其变化的 DOM 节点，
     // 以及一个 MutationObserverInit 对象。
@@ -35,7 +35,7 @@
     observerBody.observe(document.body, { attributes: true });
     document.body.id = 'body'; // <body> attributes changed
 
-    // 2.回调与 MutationRecord
+    // 2. 回调与 MutationRecord
     // 每个回调都会收到一个 MutationRecord 实例的数组。MutationRecord 实例包含的信息包括
     // 发生了什么变化，以及 DOM 的哪一部分受到了影响。因为回调执行之前可能同时发生多个满足观察
     // 条件的事件，所以每次执行回调都会传入一个包含按顺序入队的 MutationRecord 实例的数组。
@@ -80,7 +80,7 @@
     // MutationObserver {}
     // [MutationRecord]（具体略）
 
-    // 4.复用 MutationObserver
+    // 4. 复用 MutationObserver
     // 多次调用 observe() 方法，可以复用一个 MutationObserver 对象观察多个不同的目标节点。
     // 此时，MutationRecord 的 target 属性可以标识发生变化事件的目标节点。
     let observeBC =  new MutationObserver(mutationRecords => {
@@ -99,7 +99,7 @@
     cc.setAttribute('myAttC', 'selfAttC');
     // 无输出
 
-    // 5.重用 MutationObserver
+    // 5. 重用 MutationObserver
     // 调用 disconnect() 并不会结束 MutationObserver 的生命。还可以重新使用这个观察者，
     // 再将它关联到新的目标节点。
     observerBody.observe(document.body, { attributes: true });
