@@ -107,7 +107,7 @@
     // item(pos)，返回索引位置 pos 处的节点。
     // attributes 属性中的每个节点的 nodeName 是对应属性的名字，nodeValue 是属性的值。
     let dd2 = document.getElementById('ddd2');
-    dd2.attributes; // {0: class, 1: id, 2: name, class: class, id: id, name: name, length: 3}
+    dd2.attributes; // NamedNodeMap {0: class, 1: id, 2: name, class: class, id: id, name: name, length: 3}
     dd2.attributes.getNamedItem('id');           // id="ddd2"
     dd2.attributes.getNamedItem('id').nodeValue; // 'ddd2'
     // 使用中括号访问属性的简写形式。
@@ -120,21 +120,22 @@
     // 不同之处就是 removeNamedItem() 返回表示被删除属性的 Attr 节点。
     dd.attributes.removeNamedItem('name');       // name="ddd1"
     // setNamedItem() 方法很少使用，它接收一个属性节点，然后给元素添加一个新属性
+    let newAttr = document.createAttribute('selfTitle');
+    newAttr.value = 'A new Attribute';
     dd.attributes.setNamedItem(newAttr);
     // 一般来说，因为使用起来更简便，通常开发者更喜欢使用 getAttribute()、
     // removeAttribute()、setAttribute() 方法，而不是 NamedNodeMap 对象的方法。
-    // attributes 属性最有用的场景是需要迭代元素上所有属性的时候。这时候往往是要把 DOM 结构序列
-    // 化为 XML 或 HTML 字符串。HTML 或 XML 代码中属性出现的顺序不一定与 attributes 中的顺序一致。
+    // attributes 属性最有用的场景是需要迭代元素上所有属性的时候。这时候往往是要把 DOM 结构序列化为
+    // XML 或 HTML 字符串。HTML 或 XML 代码中属性出现的顺序不一定与 attributes 中的顺序一致。
 
-    // 6. 创建元素
+    // 6. 创建元素节点
     // 可以使用 document.createElement() 方法创建新元素。这个方法接收一个参数，即要创建元素的标签名。
     // 在 HTML 文档中，标签名是不区分大小写的，而 XML 文档（包括 XHTML）是区分大小写的。
-    // 使用 createElement()方法创建新元素的同时也会将其 ownerDocument 属性设置为 document。
+    // 使用 createElement() 方法创建新元素的同时也会将其 ownerDocument 属性设置为 document。
     // 此时，可以再为其添加属性、添加更多子元素。在新元素上设置这些属性只会附加信息。
     // 因为这个元素还没有添加到文档树，所以不会影响浏览器显示。
     // 要把元素添加到文档树，可以使用 appendChild()、insertBefore()、replaceChild()。
-    // 元素被添加到文档树之后，浏览器会立即将其渲染出来。
-    // 之后再对这个元素所做的任何修改，都会立即在浏览器中反映出来。
+    // 元素被添加到文档树之后，浏览器会立即将其渲染出来。之后再对这个元素所做的任何修改，都会立即在浏览器中反映出来。
     let div = document.createElement('div');
     div.id = 'newDiv';
     div.class = 'newdiv div';
@@ -145,10 +146,11 @@
     // childNodes 属性包含元素所有的子节点，这些子节点可能是其他元素、文本节点、注释或处理指令。
     // 不同浏览器在识别这些节点时的表现有明显不同，使用 childNodes 属性返回是 NodeList 对象。
     // 要取得某个元素的子节点和其他后代节点，可以使用元素的 getElementsByTagName() 方法。
-    let ccChild = document.getElementById('c').childNodes;
-    // 取得 [text, span#someOtherId.ft, text, span#ddd2.ddd.div.dd2, text]
+    cc.childNodes; // NodeList(5) [text, span#someOtherId.ft, text, span#ddd2.ddd.div.dd2, text]
     // cc 元素包含 5 个子元素，2 个 <span> 元素，3 个 Text 节点（表示 <span> 元素周围的空格）。
     // 如果把元素之间的空格删掉，则元素间不会换行，而是紧凑无间隙。
+    // 要取得某个元素的子节点和其他后代节点，可以使用元素的 getElementsByTagName()等等其它方法。
+    // 在元素上调用这个方法与在文档上调用是一样的，只不过搜索范围限制在当前元素之内，即只会返回当前元素的后代。
   </script>
 
 </body>

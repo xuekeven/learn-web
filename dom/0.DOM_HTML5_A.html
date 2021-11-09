@@ -107,7 +107,7 @@
     // 3. head 属性
     // 作为对 document.body（指向文档的<body>元素）的补充，
     // HTML5 增加了 document.head 属性，指向文档的 <head> 元素。
-    document.head; // 取得 <head> 标签
+    document.head; // <head>...</head>
 
     // 四、字符集属性
     // HTML5 增加了几个与文档字符集有关的新属性。
@@ -120,7 +120,7 @@
     // 也不包含元素的语义信息。除了前缀，自定义属性对命名是没有限制的，data- 后面跟什么都可以。
     // 定义了自定义数据属性后，可以通过元素的 dataset 属性来访问。dataset 属性是一个 DOMStringMap 的实例，
     // 包含一组键/值对映射。元素的每个 data-name 属性在 dataset 中都可以通过 data-后面的字符串作为键来访问。
-    dd.dataset;          // { myname: 'Nicholas' }
+    dd.dataset;          // DOMStringMap {myname: 'Nicholas'}
     dd.dataset.myname;   // 'Nicholas'
     // 自定义数据属性非常适合需要给元素附加某些数据的场景，比如链接追踪和在聚合应用程序中
     // 标识页面的不同部分。另外，单页应用程序框架也非常多地使用了自定义数据属性。

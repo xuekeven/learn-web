@@ -22,7 +22,8 @@
     // MutationObserver 的实例要通过调用 MutationObserver 构造函数并传入一个回调函数来创建。
     let observer = new MutationObserver(() => console.log('DOM was mutated!'));
 
-    // 一、基本用法
+    // 基本用法
+    
     // 1. observe() 方法
     // 新创建的 MutationObserver 实例不会关联 DOM 的任何部分。要把这个 observer 与 DOM 关联起来，
     // 需要使用 observe() 方法。这个方法接收两个必需的参数：要观察其变化的 DOM 节点，

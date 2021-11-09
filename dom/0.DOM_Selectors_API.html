@@ -15,40 +15,39 @@
   </div>
 
   <script>
-    // Selectors API Level 1 的核心是两个方法：querySelector()和 querySelectorAll()。
+    // Selectors API Level 1 的核心是两个方法：querySelector() 和 querySelectorAll()。
     // 在兼容浏览器中，Document 类型和 Element 类型的实例上都会暴露这两个方法。
     // Selectors API Level 2 规范在 Element 类型上新增了更多方法，如 matches()、find() 和 findAll()。
-    // 不过，目前还没有浏览器实现或宣称实现 find()和 findAll()。
+    // 不过，目前还没有浏览器实现或宣称实现 find() 和 findAll()。
 
     // querySelector() 方法接收 CSS 选择符参数，返回匹配该模式的第一个后代元素，
-    // 如果没有匹配项则返回 null。
-    document.querySelector('div'); 
-    // 取得 <div class="a div" id="a">a</div>
-    document.querySelector('.div');
-    // 取得 <div class="a div" id="a">a</div>
-    document.querySelector('.eee'); 
-    // 取得 <span class="eee div" id="eee">eee</span>
-    document.querySelector('#d');
-    // 取得 <div class="d div" id="d"><span class="eee div" id="eee">eee</span></div>
-    document.querySelector('#f');
-    // 取得 null
+    // 如果没有匹配项则返回 null。在 Document 上使用 querySelector() 方法时，会从文档元素开始搜索；
+    // 在 Element 上使用 querySelector() 方法时，则只会从当前元素的后代中查询。
+    // 用于查询模式的 CSS 选择符可繁可简，依需求而定。
+    // 如果选择符有语法错误或碰到不支持的选择符，则 querySelector() 方法会抛出错误。
+    document.querySelector('div');  // <div class="a div" id="a">a</div>
+    document.querySelector('.div'); // <div class="a div" id="a">a</div>
+    document.querySelector('.eee'); // <span class="eee div" id="eee">eee</span>
+    document.querySelector('#eee'); // <span class="eee div" id="eee">eee</span>
+    document.querySelector('#f');   // null
 
     // querySelectorAll() 方法跟 querySelector() 一样，也接收一个用于查询的参数，
-    // 它会返回所有匹配的节点，而不止一个。这个方法返回的是一个 NodeList 的静态实例。
-    // 返回的 NodeList 实例一个属性和方法都不缺，但它是一个静态的“快照”，
-    // 而非“实时”的查询，不会实时更新。如果没有匹配项，则返回空的 NodeList 实例。
+    // 但它会返回所有匹配的节点，而不止一个。这个方法返回的是一个 NodeList 的静态实例。
+    // querySelectorAll() 方法返回的 NodeList 实例一个属性和方法都不缺，但它是一个静态的“快照”，
+    // 而非“实时”的查询，不会实时更新。这样的底层实现避免了使用 NodeList 对象可能造成的性能问题。
+    // 如果没有匹配项，则返回空的 NodeList 实例。与 querySelector() 一样，
+    // querySelectorAll()也可以在 Document、DocumentFragment 和 Element 类型上使用。 
+    // 返回的 NodeList 对象可以通过 for-of 循环、item() 方法或中括号语法取得个别元素。
+    // 如果选择符有语法错误或碰到不支持的选择符，则 querySelectorAll() 方法会抛出错误。
     document.querySelectorAll('div'); 
-    // 取得 [div#a.a.div, div#b.b.div, div#c.c.div, div#d.d.div]
+    // NodeList(4) [div#a.a.div, div#b.b.div, div#c.c.div, div#d.d.div]
     document.querySelectorAll('.div'); 
-    // 取得 [div#a.a.div, div#b.b.div, div#c.c.div, div#d.d.div, span#eee.eee.div]
-    document.querySelectorAll('.eee'); 
-    // 取得 [span#eee.eee.div]
-    document.querySelectorAll('#d');
-    // 取得 [div#d.d.div]
-    document.querySelectorAll('#f');
-    // 取得 []
+    // NodeList(5) [div#a.a.div, div#b.b.div, div#c.c.div, div#d.d.div, span#eee.eee.div]
+    document.querySelectorAll('.eee'); // NodeList [span#eee.eee.div]
+    document.querySelectorAll('#d');   // NodeList [div#d.d.div]
+    document.querySelectorAll('#f');   // NodeList []
 
-    // matches()方法（在规范草案中称为 matchesSelector()）接收一个 CSS 选择符参数，
+    // matches() 方法（在规范草案中称为 matchesSelector()）接收一个 CSS 选择符参数，
     // 如果元素匹配则该选择符返回 true，否则返回 false。使用这个方法，
     // 可以方便地检测某个元素会不会被 querySelector() 或 querySelectorAll() 方法返回。
     document.body.matches("body"); // true

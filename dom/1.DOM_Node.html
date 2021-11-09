@@ -16,7 +16,7 @@
 
   <script>
     // DOM Level 1 描述了名为 Node 的接口，这个接口是所有 DOM 节点类型都必须实现的。
-    // Node 接口在 JavaScript中被实现为 Node 类型，在除 IE之外的所有浏览器中都可以直接访问这个类型。
+    // Node 接口在 JavaScript中被实现为 Node 类型，在除 IE 之外的所有浏览器中都可以直接访问这个类型。
     // 在 JavaScript 中，所有节点类型都继承 Node 类型，因此所有类型都共享相同的基本属性和方法。
 
     // 每个节点都有 nodeType 属性，表示该节点的类型。
@@ -24,47 +24,61 @@
     // 浏览器并不支持所有节点类型。开发者最常用到的是元素节点和文本节点。
 
     // 1. nodeName 与 nodeValue
-    // nodeName 与 nodeValue 保存着有关节点的信息。这两个属性的值完全取决于节点类型
-    // 在使用这两个属性前，最好先检测节点类型（使用 nodeType 属性检测）
+    // nodeName 与 nodeValue 保存着有关节点的信息。这两个属性的值完全取决于节点类型，
+    // 在使用这两个属性前，最好先检测节点类型（使用 nodeType 属性检测）。
+    let c = document.getElementById('c');
+    c.nodeName;  // 'DIV'
+    c.nodeValue; // null
     
     // 2. 节点关系
     // 文档中的所有节点都与其他节点有关系。这些关系可以形容为家族关系，相当于把文档树比作家谱。
     // 在 HTML 中，<body> 元素是 <html> 元素的子元素，而 <html> 元素则是 <body> 元素的父元素。
     // <head> 元素是 <body> 元素的同胞元素，因为它们有共同的父元素 <html>。
 
-    // 每个节点都有 childNodes 属性，指向其所有子节点，以 NodeList 实例包含。NodeList 是一个类数组对象，
-    // 用于存储可以按位置存取的有序节点。注意，NodeList 并不是 Array 的实例，但可以使用中括号访问它的值，
-    // 而且它也有 length 属性。NodeList 对象独特的地方在于，它其实是一个对 DOM 结构的查询，
-    // 因此 DOM 结构的变化会自动地在 NodeList 中反映出来。
+    // 每个节点都有一个 childNodes 属性，指向其所有子节点，其中包含一个 NodeList 的实例。
+    // NodeList 是一个类数组对象，用于存储可以按位置存取的有序节点。注意，NodeList 并不是 Array 的实例，
+    // 但可以使用中括号访问它的值，而且它也有 length 属性。NodeList 对象独特的地方在于，
+    // 它其实是一个对 DOM 结构的查询，因此 DOM 结构的变化会自动地在 NodeList 中反映出来。
     // 我们通常说 NodeList 是实时的活动对象，而不是第一次访问时所获得内容的快照。
     // 无论是使用中括号还是 item() 方法都可以访问 NodeList 中的元素，但多数开发者倾向于使用中括号，
     // 因为它是一个类数组对象。注意，length 属性表示那一时刻 NodeList 中节点的数量。可以将其转换为数组。
+    c.childNodes;        // NodeList(5) [text, span#ddd1.ddd.div, text, span#ddd2.ddd.div, text]
+    c.childNodes[1];     // <span class="ddd div" id="ddd1" name="ddd1">ddd1</span>
+    c.childNodes.length; // 5
 
     // 每个节点都有 parentNode 属性，指向其 DOM 树中的父节点。childNodes 属性中的所有节点
     // 都有同一个父节点，因此它们的 parentNode 属性都指向同一个节点。
     // 此外，childNodes 属性的 NodeList 列表中的每个节点都是同一列表中其他节点的同胞节点。
+    c.parentNode; // 取得 body 标签
 
     // 每个节点都有 previousSibling 属性和 nextSibling 属性，分别指向其前一个同胞节点和后一个同胞节点。
     // 使用 previousSibling 属性和 nextSibling 属性可以在 childNodes 属性列表的节点间导航。
     // 所以，childNodes 属性列表中第一个节点的 previousSibling 属性是 null，
     // 最后一个节点的 nextSibling 属性也是 null。如果节点的 childNodes 属性中只有一个节点，
     // 则它的 previousSibling 和 nextSibling 属性都是 null。
+    c.previousSibling;                 // #text
+    c.nextSibling;                     // #text
+    c.previousSibling.previousSibling; // <div class="b div" id="b">b</div>
 
     // 每个节点都有 firstChild 属性和 lastChild 属性，分别指向其所有子节点中的第一个和最后一个子节点。
     // someNode.firstChild 的值始终等于 someNode.childNodes[0]，
     // someNode.lastChild 的值始终等于 someNode.childNodes[someNode. childNodes.length-1]。
     // 如果只有一个子节点，则 firstChild 和 lastChild 指向同一个节点。
     // 如果没有子节点，则 firstChild 和 lastChild 都是 null。
+    c.firstChild; // #text
+    c.lastChild;  // #text
 
     // 有了这些关系，childNodes 属性的作用远远不止是必备属性那么简单。这是因为利用这些关系指针，
     // 几乎可以访问到文档树中的任何节点，而这种便利性是 childNodes 的最大亮点。
 
     // 还有一个便利的方法是 hasChildNodes()，这个方法如果返回 true 则说明节点有一个或多个子节点。
     // 相比查询 childNodes 的 length 属性，这个方法无疑更方便。
+    c.hasChildNodes(); // true
 
     // 最后还有一个所有节点都共享的关系。ownerDocument 属性是一个指向代表整个文档的文档节点的指针。
     // 所有节点都被创建它们（或自己所在）的文档所拥有，因为一个节点不可能同时存在于两个或者多个文档中。
     // 这个属性为迅速访问文档节点提供了便利，因为无需在文档结构中逐层上溯了。
+    c.ownerDocument; // #document
     
     // 3. 操纵节点
     // 因为所有关系指针都是只读的，所以 DOM 又提供了一些操纵节点的方法。

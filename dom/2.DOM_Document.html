@@ -7,9 +7,9 @@
   <title>DOM_Document</title>
 </head>
 <body>
-  <div class="a div" id="a">a</div>
-  <div class="b div" id="b">b</div>
-  <div class="c div" id="c">
+  <div class="a div" id="a" name='Div'>a</div>
+  <div class="b div" id="b" name='Div'>b</div>
+  <div class="c div" id="c" name='cDiv'>
     <span class="ddd div" id="ddd1" name='ddd1'>ddd1</span>
     <span class="ddd div" id="ddd2" name='ddd2'>ddd2</span>
   </div>
@@ -30,15 +30,21 @@
     // 1. 文档子节点
     // Document 节点的子节点可以是 DocumentType、Element、ProcessingInstruction、Comment，
     // 也提供了两个访问子节点的快捷方式：documentElement 属性和 doctype 属性。
-    // documentElement 属性，指向 HTML 页面中的 <html> 元素；doctype 属性，指向 <!doctype> 元素。
-    // 此外，作为 HTMLDocument 的实例，document 对象还有一个 body 属性，直接指向 <body> 元素。
+    // documentElement 属性，指向 HTML 页面中的 <html> 元素，虽然 document.childNodes 中有 <html> 元素，
+    // 但使用 documentElement 属性可以更快更直接地访问该元素
     document.documentElement; // 取得 html 标签
-    document.doctype;         // 取得 <!DOCTYPE html>
-    document.body;            // 取得 body 标签
+    document.childNodes[1];   // 取得 html 标签
+
+    // 此外，作为 HTMLDocument 的实例，document 对象还有一个 body 属性，直接指向 <body> 元素。
+    document.body; // 取得 body 标签
+
+    // <!doctype> 标签是文档中独立的部分，其信息可以通过 doctype 属性。
+    document.doctype; // <!DOCTYPE html>
+    
     // 一般来说，appendChild()、removeChild()、replaceChild() 方法不会用在 document 对象上。
     // 这是因为文档类型（如果存在）是只读的，且只能有一个 Element 类型的子节点（即 <html> 已经存在）。
-    document.firstChild;      // 取得 <!DOCTYPE html>
-    document.childNodes;      // 取得 [<!DOCTYPE html>, html]
+    document.firstChild;      // <!DOCTYPE html>
+    document.childNodes;      // NodeList(2) [<!DOCTYPE html>, html]
 
     // 2. 文档信息
     // document 作为 HTMLDocument 实例，还有一些 Document 上没有的属性。这些属性提供浏览器所加载网页的信息。
@@ -46,9 +52,10 @@
     // 读写页面的标题，修改后的标题也会反映在浏览器标题栏上。但是修改 title 属性并不会改变 <title> 元素。
     document.title;                    // 'DOM_Document'
     document.title = "New page title"; // 'New page title'
+
     // URL 属性包含当前页面的完整 URL（地址栏中的 URL），domain 属性包含页面的域名，
     // referrer 属性包含链接到当前页面的那个页面的 URL。如果当前页面没有来源，referrer 属性包含空字符串。
-    // 这三个当中，只有 domain 属性是可以设置的。出于安全考虑，给 domain 属性设置的值是有限制的。
+    // 这三个当中，只有 domain 属性是可以设置的。出于安全考虑，给 domain 属性设置的值是有限制的（具体见书）。
     document.URL;                      // 取得完整的 URL 
     document.domain;                   // 取得域名
     document.referrer;                 // 取得来源
@@ -59,22 +66,32 @@
     // getElementById() 方法接收一个参数，即要获取元素的 ID，如果找到了则返回这个元素，没找到则返回 null。
     // 参数 ID 必须跟元素在页面中的 id 属性值完全匹配，包括大小写。
     // 如果页面中存在多个具有相同 ID 的元素，则 getElementById() 返回在文档中出现的第一个元素。
-    document.getElementById('b'); // 取得 <div class="b div" id="b">b</div>
+    document.getElementById('b'); // <div class="b div" id="b">b</div>
+
     // getElementsByTagName() 方法接收一个参数，即要获取元素的标签名，返回包含零个或多个元素的 NodeList。
     // 在 HTML 文档中，该方法返回 HTMLCollection 对象。HTMLCollection 和 NodeList 很相似，都是“实时”列表。
-    // 要取得文档中的所有元素，可以给该方法传入*。在 JS 和 CSS 中，* 被认为是匹配一切的字符。
+    // 可以使用中括号或 item() 方法从 HTMLCollection 取得特定的元素。而取得元素的数量同样可以通过 length 属性得知。
+    // HTMLCollection 对象还有一个额外的方法 namedItem()，可通过标签的 name 属性取得某一项的引用。这样，就提供了
+    // 除索引之外的另一种获取列表项的方式，从而为取得元素提供了便利。对于 name 属性的元素，还可以直接使用中括号来获取。
+    // 对 HTMLCollection 对象而言，中括号既可以接收数值索引，也可以接收字符串索引。
+    // 而在后台，数值索引会调用 item()，字符串索引会调用 namedItem()。
     document.getElementsByTagName('div');
-    // 取得 [div#a.a.div, div#b.b.div, div#c.c.div, a: div#a.a.div, b: div#b.b.div, c: div#c.c.div] 
+    // HTMLCollection(3) [div#a.a.div, div#b.b.div, div#c.c.div, a: div#a.a.div, b: div#b.b.div, c: div#c.c.div] 
+    document.getElementsByTagName('div')[0];                // <div class="a div" id="a">a</div>
+    document.getElementsByTagName('div').item(1);           // <div class="b div" id="b">b</div>
+    document.getElementsByTagName('div').namedItem('cDiv'); // <div class="c div" id="c" name="cDiv">...</div>
+    document.getElementsByTagName('div')['cDiv'];           // <div class="c div" id="c" name="cDiv">...</div>
+    // 要取得文档中的所有元素，可以给该方法传入 *。在 JS 和 CSS 中，* 被认为是匹配一切的字符。
     document.getElementsByTagName('*');
-    // 取得 [html, head, meta, meta, meta, title, body, div#a.a.div, div#b.b.div, div#c.c.div, 
+    // HTMLCollection(14) [html, head, meta, meta, meta, title, body, div#a.a.div, div#b.b.div, div#c.c.div, 
     // span#ddd1.ddd.div, span#ddd2.ddd.div, script, viewport: meta, a: div#a.a.div, 
     // b: div#b.b.div, c: div#c.c.div, ddd1: span#ddd1.ddd.div, ddd2: span#ddd2.ddd.div]
     document.getElementsByTagName('span');
-    // 取得 [span#ddd1.ddd.div, span#ddd2.ddd.div, ddd1: span#ddd1.ddd.div, ddd2: span#ddd2.ddd.div]
+    // HTMLCollection(2) [span#ddd1.ddd.div, span#ddd2.ddd.div, ddd1: span#ddd1.ddd.div, ddd2: span#ddd2.ddd.div]
+
     // getElementsByName() 方法会返回具有给定 name 属性的所有元素。该方法最常用于单选按钮，
     // 因为同一字段的单选按钮必须具有相同的 name 属性才能确保把正确的值发送给服务器。
-    // 该方法也返回 HTMLCollection。但在这种情况下，namedItem() 方法只会取得第一项（因为 name 属性都一样）。
-    document.getElementsByName('ddd2'); // 取得 [span#ddd2.ddd.div]
+    document.getElementsByName('Div'); // NodeList(2) [div#a.a.div, div#b.b.div]
 
     // 4. 特殊集合
     // document 对象上还暴露几个特殊集合，这些集合也是 HTMLCollection 实例，是访问文档中公共部分的快捷方式。
@@ -83,11 +100,19 @@
     // document.forms 包含文档中所有 <form> 元素（与 document.getElementsByTagName ("form") 返回结果相同）
     // document.images 包含文档中所有 <img> 元素（与 document.getElementsByTagName ("img") 返回结果相同）
     // 这些特殊集合始终存在于 HTMLDocument 对象上，与所有 HTMLCollection 对象一样，内容会实时更新以符合最新文档内容。
-    document.anchors;
-    document.links;
-    document.forms;
-    document.images;
+    document.anchors; // HTMLCollection []
+    document.links;   // HTMLCollection []
+    document.forms;   // HTMLCollection []
+    document.images;  // HTMLCollection []
 
+    // 5. DOM 兼容性检测
+    // 由于 DOM 有多个 Level 和多个部分，因此确定浏览器实现了 DOM 的哪些部分是很必要的。
+    // document.implementation 属性是一个对象，其中提供了与浏览器 DOM 实现相关的信息和能力。
+    // DOM Level 1 在 document.implementation 上只定义了一个方法，即 hasFeature()。
+    // 这个方法接收两个参数：特性名称和 DOM 版本。如果浏览器支持指定的特性和版本，则 hasFeature() 方法返回 true。
+    // 由于实现不一致，因此 hasFeature() 的返回值并不可靠。目前这个方法已经被废弃，不再建议使用。
+    // 为了向后兼容，目前主流浏览器仍然支持这个方法，但无论检测什么都一律返回 true。
+    
     // 6. 文档写入
     // document 对象有一个古老的能力，即向网页输出流中写入内容。这个能力对应 4 个方法。
     // write() 和 writeln() 方法都接收一个字符串参数，可以将这个字符串写入网页中。
