@@ -17,10 +17,18 @@
         background-color: coral;
       }
 
-      /* margin */
-      /* .son {
-        margin: 0 auto;
+      /* 子元素是行内元素 */
+
+      /* text-align */
+      /* .father {
+        text-align: center;
+      }
+
+      .son {
+        display: inline;
       } */
+      
+      /* 子元素是块级元素 */
       
       /* 绝对定位 + calc() */
       /* .father {
@@ -29,6 +37,21 @@
       .son {
         position: absolute;
         left: calc(50% - 50px);
+      } */
+
+      /* 绝对定位 + 负 margin */
+      /* .father {
+        position: relative;
+      }
+      .son {
+        position: absolute;
+        left: 50%;
+        margin-left: -50px;
+      } */
+
+      /* margin */
+      /* .son {
+        margin: 0 auto;
       } */
 
       /* 绝对定位 + margin */
@@ -40,16 +63,6 @@
         left: 0;
         right: 0;
         margin: 0 auto;
-      } */
-
-      /* 绝对定位 + 负 margin */
-      /* .father {
-        position: relative;
-      }
-      .son {
-        position: absolute;
-        left: 50%;
-        margin-left: -50px;
       } */
 
       /* 绝对定位 + transform */
@@ -92,7 +105,7 @@
   
   <body>
     <div class="father">
-      <div class="son"></div>
+      <div class="son">son</div>
     </div>
   </body>
 </html>

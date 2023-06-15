@@ -1,7 +1,7 @@
 // 原始数据类型
-// JS 的数据类型两大类：原始数据类型和对象数据类型。
-// 原始数据类型共七种：Null，Undefined，Boolean，Number，String，Symbol，BigInt。
-// 这里主要介绍前五种原始数据类型在 TypeScript 中的应用。
+JS 的数据类型两大类：原始数据类型和对象数据类型。
+原始数据类型共七种：Null，Undefined，Boolean，Number，String，Symbol，BigInt。
+这里主要介绍前五种原始数据类型在 TypeScript 中的应用。
 
 // 1. 布尔值
 // 使用 boolean 来定义布尔值类型。

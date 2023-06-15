@@ -19,11 +19,11 @@ interface Fish {
   name: string
   swim(): void
 }
-// function isFish(animal: Cat | Fish) {
-//   if (typeof animal.swim === 'function') return true 
-//   else return false 
-// }
-function isFish(animal: Cat | Fish) {
+function isFish1(animal: Cat | Fish) {
+  if (typeof animal.swim === 'function') return true 
+  else return false 
+}
+function isFish2(animal: Cat | Fish) {
   if (typeof (animal as Fish).swim === 'function') return true
   else return false
 }
@@ -45,7 +45,7 @@ function isApiError(error: Error) {
 // 在 any 类型的变量上，访问任何属性都是允许的。将一个变量断言为 any 是解决 TS 中类型问题的最后一个手段。
 // 它极有可能掩盖了真正的类型错误，所以不是非常确定，就不要使用 as any。
 // 一方面不能滥用 as any，另一方面也不要完全否定它的作用，我们需要在类型的严格性和开发的便利性之间掌握平衡。
-// window.foo = 1
+window.foo = 1
 (window as any).foo = 1
 
 // ④ 将 any 断言为一个具体的类型
@@ -130,8 +130,8 @@ interface Cat {
 const animalCat: Animal = {
   name: 'tom'
 }
-// let tom111 = animalCat as Cat // 不报错
-// let tom222: Cat = animalCat // error TS2741: Property 'run' is missing in type 'Animal' but required in type 'Cat'.
+let tom111 = animalCat as Cat // 不报错
+let tom222: Cat = animalCat // error TS2741: Property 'run' is missing in type 'Animal' but required in type 'Cat'.
 // 这里不允许将 animalCat 赋值为 Cat 类型的 tom222，是因为，不能把父类的实例赋值给类型为子类的变量。
 // 将 animalCat 断言为 Cat 类型，只需要满足任何一个兼容另一个即可。
 // 将 animalCat 赋值为 Cat 类型的 tom222，需要满足 Cat 兼容 Animal。

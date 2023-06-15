@@ -41,22 +41,32 @@ let tom2: Person2 = {
   name: 'Tom',
   gender: 'male'
 }
-// interface Person3 {
-//   name: string
-//   age?: number
-//   [propName: string]: string
-// }
-// let tom3: Person3 = {
-//   name: 'Tom',
-//   age: 25,
-//   gender: 'male'
-// }
+interface Person3 {
+  name: string
+  age?: number
+  [propName: string]: string
+}
+let tom3: Person3 = {
+  name: 'Tom',
+  age: 25,
+  gender: 'male'
+}
 interface Person4 {
   name: string
   age?: number
-  [propName: string]: string | number
+  [propName: string]: string | number 
 }
 let tom4: Person4 = {
+  name: 'Tom',
+  age: 25,
+  gender: 'male'
+}
+interface Persons {
+  name: string
+  age?: number
+  [propName: string]: string | number | undefined
+}
+let toms: Persons = {
   name: 'Tom',
   age: 25,
   gender: 'male'
@@ -75,8 +85,8 @@ let tom5: Person5 = {
   id: new Date().getTime(),
   name: 'Tom'
 }
-// tom5.id = 1
-// let tom6: Person5 = {
-//   name: 'Tom'
-// }
-// tom6.id = 1
+tom5.id = 1
+let tom6: Person5 = {
+  name: 'Tom'
+}
+tom6.id = 1

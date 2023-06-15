@@ -7,8 +7,8 @@ function sum1(x: number, y: number): number {
   return x + y
 }
 sum1(1, 2)
-// sum1(1, 2, 3) // error TS2346: Supplied parameters do not match any signature of call target.
-// sum1(1)       // error TS2346: Supplied parameters do not match any signature of call target.
+sum1(1, 2, 3) // error TS2346: Supplied parameters do not match any signature of call target.
+sum1(1)       // error TS2346: Supplied parameters do not match any signature of call target.
 
 // 2. 函数表达式
 // sum2 的代码只对等号右侧的匿名函数就行了类型定义，而等号左侧的 sum2 是通过赋值操作进行类型推论而推断出来的。

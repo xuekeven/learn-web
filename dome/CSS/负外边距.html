@@ -1,0 +1,70 @@
+<!-- 负外边距 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>负外边距</title>
+  <style>
+    #wrap {
+      height: 200px;
+      background-color: pink;
+    }
+    #main * {
+      display: inline-block;
+    }
+    .sider {
+      background-color: red;
+      width: 100px;
+    }
+    #content {
+      background-color: green;
+      width: 100px;
+
+    }
+    #test {
+      background-color: black;
+      color: white;
+    }
+
+    /* 左侧外边距 */
+    #content {
+      margin-left: -10px;
+    }
+
+    /* 右侧外边距 */
+    /* #content {
+      margin-right: -10px;
+    } */
+
+    /* 底部外边距 */
+    /* #main * {
+      display: block;
+    }
+    #content {
+      margin-bottom: -10px;
+    } */
+
+    /* 上部外边距 */
+    /* #main * {
+      display: block;
+    }
+    #content {
+      margin-top: -10px;
+    } */
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="main">
+      <div class="sider">sider</div>
+      <div id="content">content</div>
+      <div class="sider">sider</div>
+    </div>
+    <div id="test">
+      test
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!-- 外边距折叠 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>外边距折叠</title>
+  <style>
+    #wrap {
+      height: 200px;
+      background-color: pink;
+    }
+    .sider {
+      background-color: red;
+      width: 100px;
+      margin: 10px;
+    }
+    #content {
+      background-color: green;
+      width: 100px;
+      margin: 10px;
+    }
+
+    /* 取消外边距折叠 */
+    /* #main {
+      display: flex;
+      flex-direction: column;
+    } */
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="main">
+      <div class="sider">sider</div>
+      <div id="content">content</div>
+      <div class="sider">sider</div>
+    </div>
+  </div>
+</body>
+</html>
