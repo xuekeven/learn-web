@@ -1,12 +1,12 @@
 <!-- 五种定位 -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>五种定位</title>
     <style>
       body {
-        min-height: 200vh;   /* 设置网页高度，以出现滚动条 */
+        min-height: 200vh; /* 设置网页高度，以出现滚动条 */
         margin: 0;
       }
       button {
@@ -26,10 +26,10 @@
       }
       /*  模态框 固定定位&相对定位  */
       .modal {
-        display: none;
+        display: true;
       }
       .modal-backdrop {
-        position: fixed;   /* 固定定位 */
+        position: fixed; /* 固定定位 */
         top: 0;
         right: 0;
         bottom: 0;
@@ -37,7 +37,7 @@
         background-color: rgba(0, 0, 0, 0.5);
       }
       .modal-body {
-        position: fixed;   /* 固定定位 */
+        position: fixed; /* 固定定位 */
         top: 3em;
         right: 20%;
         bottom: 3em;
@@ -47,24 +47,24 @@
         overflow: auto;
       }
       .modal-close {
-        position: absolute;   /* 相对定位 */
+        position: absolute; /* 相对定位 */
         top: 0.3em;
         right: 0.3em;
         padding: 0.3em;
-        cursor: pointer;   /* 改变鼠标指针 */
+        cursor: pointer; /* 改变鼠标指针 */
         font-size: 2em;
         height: 1em;
         width: 1em;
-        text-indent: 10em;   /* 文本块首行缩进 */
-        overflow: hidden;   /* 文字溢出消失 */
+        text-indent: 10em; /* 文本块首行缩进 */
+        overflow: hidden; /* 文字溢出消失 */
         border: 0;
       }
       .modal-close::after {
-        position: absolute;   /* 相对定位 */
-        line-height: 0.5;   /* 设置行高 */
+        position: absolute; /* 相对定位 */
+        line-height: 0.5; /* 设置行高 */
         top: 0.2em;
         left: 0.1em;
-        text-indent: 0;   /* 文本块首行缩进 */
+        text-indent: 0; /* 文本块首行缩进 */
         content: "\00D7";
       }
       /* 弹性布局 两栏布局 */
@@ -91,32 +91,32 @@
       /* 下拉菜单 相对定位 */
       .dropdown {
         display: inline-block;
-        position: relative;   /* 相对定位，创建包含块 */
+        position: relative; /* 相对定位，创建包含块 */
       }
       .dropdown-label {
-        padding: 0.5em 2em 0.5em 1.5em ;   /* 增大间距，留空三角形 */
+        padding: 0.5em 2em 0.5em 1.5em; /* 增大间距，留空三角形 */
         border: 1px solid #ccc;
         background-color: #eee;
       }
       /* 菜单标题添加一个三角形 绝对定位 */
       .dropdown-label::after {
-        content: '';  /* 伪元素内容为空，所以没有宽和高，形成三角形 */
-        position: absolute;   /* 绝对定位 */
+        content: ""; /* 伪元素内容为空，所以没有宽和高，形成三角形 */
+        position: absolute; /* 绝对定位 */
         right: 1em;
         top: 1em;
         border: 0.3em solid;
         border-color: black transparent transparent;
       }
       .dropdown-menu {
-        display: none;   /* 隐藏菜单 */
-        position: absolute;   /* 绝对定位 */
+        display: none; /* 隐藏菜单 */
+        position: absolute; /* 绝对定位 */
         left: 0;
-        top: 2.1em;   /* 将菜单移动到下拉菜单下面 */
+        top: 2.1em; /* 将菜单移动到下拉菜单下面 */
         min-width: 100%;
         background-color: #eee;
       }
       .dropdown:hover .dropdown-menu {
-        display: block;   /* 鼠标悬停时显示菜单 */
+        display: block; /* 鼠标悬停时显示菜单 */
       }
       .submenu {
         padding-left: 0;
@@ -138,17 +138,16 @@
         background-color: #fff;
       }
     </style>
-
   </head>
 
   <body>
-
     <header class="top-banner">
       <div class="top-banner-inner">
         <p>
-        Find out what's going on at Wombat Coffee each
-        month. Sign up for our newsletter:
-        <button id="open">Sign up</button>   <!--触发弹窗的按钮-->
+          Find out what's going on at Wombat Coffee each month. Sign up for our
+          newsletter:
+          <button id="open">Sign up</button>
+          <!--触发弹窗的按钮-->
         </p>
       </div>
     </header>
@@ -159,27 +158,22 @@
       <div class="modal-backdrop"></div>
       <!--静态框-->
       <div class="modal-body">
-
         <button class="modal-close" id="close">close</button>
 
         <h2>Wombat Newsletter</h2>
 
-        <p>
-          Sign up for our monthly newsletter.
-          No spam.We promise!
-        </p>
+        <p>Sign up for our monthly newsletter. No spam.We promise!</p>
 
         <form>
           <p>
             <label for="email">Email address:</label>
-            <input type="text" name="email"/>
+            <input type="text" name="email" />
           </p>
           <p>
             <button type="submit">Submit</button>
           </p>
         </form>
       </div>
-
     </div>
 
     <div class="container">
@@ -188,11 +182,9 @@
         <nav>
           <!--下拉菜单-->
           <div class="dropdown">
-
             <div class="dropdown-label">Main Menu</div>
 
             <div class="dropdown-menu">
-
               <ul class="submenu">
                 <li><a href="/">Home</a></li>
                 <li><a href="/coffees">Coffees</a></li>
@@ -200,7 +192,6 @@
                 <li><a href="/specials">Specials</a></li>
                 <li><a href="/about">About us</a></li>
               </ul>
-
             </div>
           </div>
         </nav>
@@ -221,21 +212,19 @@
     </div>
 
     <script>
+      let button = document.getElementById("open");
+      let close = document.getElementById("close");
+      let modal = document.getElementById("modal");
 
-      let button = document.getElementById('open');
-      let close = document.getElementById('close');
-      let modal = document.getElementById('modal');
-
-      button.addEventListener('click', function(event) {
+      button.addEventListener("click", function (event) {
         event.preventDefault();
-        modal.style.display = 'block';
+        modal.style.display = "block";
       });
 
-      close.addEventListener('click', function(event) {
+      close.addEventListener("click", function (event) {
         event.preventDefault();
-        modal.style.display = 'none';
+        modal.style.display = "none";
       });
-      
     </script>
   </body>
 </html>

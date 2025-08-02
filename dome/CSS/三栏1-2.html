@@ -3,33 +3,33 @@
 <!-- 代码：自适应宽度高度，在前；自适应高度固定宽度，在中后 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>三栏1-2</title>
-  <style>
-    #content {
-      height: 500px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
-      background-color: pink;
-      color: honeydew;
-    }
-    #left {
-      height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
-      background-color: burlywood;
-      color: honeydew;
-    }
-    #right {
-      height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
-      background-color: green;
-      color: honeydew;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>三栏1-2</title>
+    <style>
+      #content {
+        height: 500px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
+        background-color: pink;
+        color: honeydew;
+      }
+      #left {
+        height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
+        background-color: burlywood;
+        color: honeydew;
+      }
+      #right {
+        height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
+        background-color: green;
+        color: honeydew;
+      }
 
-    /* 浮动 */
-    /* 见圣杯布局和双飞翼布局 */
+      /* 浮动 */
+      /* 见圣杯布局和双飞翼布局 */
 
-    /* 定位 */
-    /* #wrap {
+      /* 定位 */
+      /* #wrap {
       position: relative;
     }
     #content {
@@ -49,31 +49,31 @@
       top: 0;
     } */
 
-    /* 网格布局 */
-    #wrap {
-      display: grid;
-      grid-template-columns: 200px 1fr 200px;
-      grid-template-rows: 1fr;
-    }
-    #content {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-    }
-    #left {
-      grid-column: 1 / 2 ;
-      grid-row: 1 / 2;
-    }
-    #right {
-      grid-column: 3 / 4;
-      grid-row: 1 / 2;
-    }
-  </style>
-</head>
-<body>
-  <div id="wrap">
-    <div id="content">自适应宽度高度</div>
-    <div id="left">自适应高度固定宽度</div>
-    <div id="right">自适应高度固定宽度</div>
-  </div>
-</body>
+      /* 网格布局 */
+      #wrap {
+        display: grid;
+        grid-template-columns: 200px 1fr 200px;
+        grid-template-rows: 1fr;
+      }
+      #content {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+      }
+      #left {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+      }
+      #right {
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="content">自适应宽度高度</div>
+      <div id="left">自适应高度固定宽度</div>
+      <div id="right">自适应高度固定宽度</div>
+    </div>
+  </body>
 </html>

@@ -1,8 +1,8 @@
 <!-- 浮动 -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>浮动</title>
 
     <style>
@@ -11,34 +11,36 @@
         box-sizing: border-box;
       }
       /* 设置所有元素和根元素的第一个及最后一个元素的盒模型样式 */
-      * , ::before , ::after {
+      *,
+      ::before,
+      ::after {
         box-sizing: inherit;
       }
       body {
-        background-color: #eee;   /* 大背景颜色为浅灰色 */
+        background-color: #eee; /* 大背景颜色为浅灰色 */
       }
       /* 猫头鹰选择器 */
       body * + * {
         margin-top: 1.5em;
       }
       /* 双容器模式 */
-      .container {   
+      .container {
         max-width: 1080px;
         margin: 0 auto;
       }
       /* 总标题 */
-      header {   
+      header {
         padding: 1em 1.5em;
         color: #fff;
         background-color: #0072b0;
-        border-radius: 0.5em;   /* 设置圆角 */
+        border-radius: 0.5em; /* 设置圆角 */
         margin-bottom: 1.5em;
       }
       /* 主区域 */
       .main {
         padding: 0 1.5em;
-        background-color: #fff;   /* 主要内容部分背景颜色为白色 */
-        border-radius: 0.5em;   /* 设置圆角 */
+        background-color: #fff; /* 主要内容部分背景颜色为白色 */
+        border-radius: 0.5em; /* 设置圆角 */
       }
       /* 每个媒体区域块设置浮动 */
       .media {
@@ -59,80 +61,76 @@
         margin-right: 1.5em;
       }
       .media-body {
-        overflow: auto;   /* 创建 BFC，防止正文与图片重叠 */
+        overflow: auto; /* 创建 BFC，防止正文与图片重叠 */
         margin-top: 0;
       }
       .media-body h4 {
         margin-top: 0;
       }
       /* 防止浮动容器高度塌陷，清除浮动 */
-      .clearfix::before,.clearfix::after {   /* 选中容器首和尾的伪元素 */
-        display: table;  /* 设置伪元素样式为 table 防止外边距折叠 */
-        content: ' ';   /* 设置 content 属性让伪元素出现 */
+      .clearfix::before,
+      .clearfix::after {
+        /* 选中容器首和尾的伪元素 */
+        display: table; /* 设置伪元素样式为 table 防止外边距折叠 */
+        content: " "; /* 设置 content 属性让伪元素出现 */
       }
-      .clearfix::after {   /* 选中容器末尾的伪元素 */
-        clear: both;  /*  清除容器浮动，防止浮动容器高度塌陷 */
+      .clearfix::after {
+        /* 选中容器末尾的伪元素 */
+        clear: both; /*  清除容器浮动，防止浮动容器高度塌陷 */
       }
     </style>
-
   </head>
 
   <body>
-
     <div class="container">
-
       <header>
         <h1>Franklin Running Club</h1>
       </header>
 
       <main class="main clearfix">
-
         <h2>Running tips</h2>
 
         <div>
           <div class="media">
-            <img class="media-image" src="../images/runner.png">
+            <img class="media-image" src="../images/runner.png" />
             <div class="media-body">
               <h4>Strength</h4>
               <p>
-                Strength training is an important part of
-                injury prevention. Focus on your core&mdash;
-                especially your abs and gluts.
+                Strength training is an important part of injury prevention.
+                Focus on your core&mdash; especially your abs and gluts.
               </p>
             </div>
           </div>
 
           <div class="media">
-            <img class="media-image" src="../images/shoes.png">
+            <img class="media-image" src="../images/shoes.png" />
             <div class="media-body">
               <h4>Cadence</h4>
               <p>
-                Check your stride turnover. The most efficient
-                runners take about 180 steps per minute.
+                Check your stride turnover. The most efficient runners take
+                about 180 steps per minute.
               </p>
             </div>
           </div>
 
           <div class="media">
-            <img class="media-image" src="../images/shoes.png">
+            <img class="media-image" src="../images/shoes.png" />
             <div class="media-body">
               <h4>Change it up</h4>
               <p>
-                Don't run the same every time you hit the
-                road. Vary yur pace, and vary the distance
-                of your runs.
+                Don't run the same every time you hit the road. Vary yur pace,
+                and vary the distance of your runs.
               </p>
             </div>
           </div>
 
           <div class="media">
-            <img class="media-image" src="../images/runner.png">
+            <img class="media-image" src="../images/runner.png" />
             <div class="media-body">
               <h4>Focus on form</h4>
               <p>
-                Run tall but relaxed. Your feet should hit
-                the ground beneath your hips, not out in
-                front of you.
+                Run tall but relaxed. Your feet should hit the ground beneath
+                your hips, not out in front of you.
               </p>
             </div>
           </div>

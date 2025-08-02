@@ -1,8 +1,8 @@
 <!-- 两栏弹性布局1 -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>两栏弹性布局1</title>
     <style>
       /* 修改根元素的盒模型样式 */
@@ -10,7 +10,9 @@
         box-sizing: border-box;
       }
       /* 页面上所有元素和伪元素继承盒模型样式，防止破坏第三方组件的盒模型样式 */
-      * , ::before , ::after {
+      *,
+      ::before,
+      ::after {
         box-sizing: inherit;
       }
       body {
@@ -32,16 +34,16 @@
       }
       /* 左主区域 */
       .main {
-        width: 70%;   /* 元素宽度 */
-        padding: 0em 1em;   /* 取消顶部内间距，下方文字还有外间距 */
+        width: 70%; /* 元素宽度 */
+        padding: 0em 1em; /* 取消顶部内间距，下方文字还有外间距 */
         background-color: #fff;
         border-radius: 0.5em;
       }
       /* 右侧区域 */
       .sidebar {
-        width: 30%;   /* 元素宽度 */
+        width: 30%; /* 元素宽度 */
         padding: 1.5em;
-        margin-top: 0;   /* 解决猫头鹰选择器的副作用 */
+        margin-top: 0; /* 解决猫头鹰选择器的副作用 */
         margin-left: 1.5em;
         background-color: #fff;
         border-radius: 0.5em;
@@ -65,28 +67,30 @@
   </head>
 
   <body>
-
     <header class="header">
       <h1 class="welcome">Franklin Running Club</h1>
     </header>
 
     <div class="wrapper">
-
       <div class="container">
-
         <main class="main" id="aaa">
           <h2>Come join us!</h2>
           <p>
-            The Franklin Running club meets at 6:00pm every Thursday
-            at the town square. Runs are three to five miles, at you
-            own pace.
+            The Franklin Running club meets at 6:00pm every Thursday at the town
+            square. Runs are three to five miles, at you own pace.
           </p>
         </main>
-    
+
         <aside class="sidebar">
-          <a class="button-link" href="https://twitter.com">FOLLOW US ON TWITTER</a>
-          <a class="button-link" href="https://www.facebook.com">LINK US ON FACEBOOK</a>
-          <a class="sponsor-link" href="https://sponsors.com">become a sponsor</a>
+          <a class="button-link" href="https://twitter.com"
+            >FOLLOW US ON TWITTER</a
+          >
+          <a class="button-link" href="https://www.facebook.com"
+            >LINK US ON FACEBOOK</a
+          >
+          <a class="sponsor-link" href="https://sponsors.com"
+            >become a sponsor</a
+          >
         </aside>
       </div>
     </div>

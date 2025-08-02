@@ -1,8 +1,8 @@
 <!-- 网格系统 -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Franklin Running Club</title>
     <style>
       /* 设置根元素（所有元素）改变盒模型样式 */
@@ -10,69 +10,93 @@
         box-sizing: border-box;
       }
       /* 设置所有元素和根元素的第一个及最后一个元素的盒模型样式 */
-      * ,
-      ::before ,
+      *,
+      ::before,
       ::after {
         box-sizing: inherit;
       }
       body {
-        background-color: #eee;   /* 大背景颜色为浅灰色 */
+        background-color: #eee; /* 大背景颜色为浅灰色 */
       }
       /* 猫头鹰选择器 */
       body * + * {
         margin-top: 1.5em;
       }
       /* 双容器模式 */
-      .container {   
+      .container {
         max-width: 1080px;
         margin: 0 auto;
       }
       /* 总标题 */
-      header {   
+      header {
         padding: 1em 1.5em;
         color: #fff;
         background-color: #0072b0;
-        border-radius: 0.5em;   /* 设置圆角 */
+        border-radius: 0.5em; /* 设置圆角 */
         margin-bottom: 1.5em;
       }
       /* 主区域 */
       .main {
         padding: 0 1.5em 1.5em;
-        background-color: #fff;   /* 主要内容部分背景颜色为白色 */
-        border-radius: 0.5em;   /* 设置圆角 */
+        background-color: #fff; /* 主要内容部分背景颜色为白色 */
+        border-radius: 0.5em; /* 设置圆角 */
       }
       /* 每列媒体区域 */
       .row {
-        margin-left: -0.75em ;
-        margin-right: -0.75em ;
+        margin-left: -0.75em;
+        margin-right: -0.75em;
       }
       /* 清除浮动元素“陷阱”。虽然使用网格系统后与浮动布局有所不同，
       网格系统两个元素用一个 div 框架，但也要防止浮动元素因高度不同出现问题。*/
       .row::after {
-        content: ' ';
+        content: " ";
         display: block;
-        clear: both;   
+        clear: both;
       }
       /* 属性选择器，浮动布局 */
-      [class*='column-'] {
+      [class*="column-"] {
         float: left;
-        padding: 0 0.75em; 
+        padding: 0 0.75em;
         margin-top: 0;
       }
 
       /* 网格系统 */
-      .column-1 { width: 8.3333%}
-      .column-2 { width: 16.6667%}
-      .column-3 { width: 25%}
-      .column-4 { width: 33.3333%}
-      .column-5 { width: 41.6667%}
-      .column-6 { width: 50%}
-      .column-7 { width: 58.3333%}
-      .column-8 { width: 66.6667%}
-      .column-9 { width: 75%}
-      .column-10 { width: 83.3333%}
-      .column-11 { width: 91.6667%}
-      .column-12 { width: 100%}
+      .column-1 {
+        width: 8.3333%;
+      }
+      .column-2 {
+        width: 16.6667%;
+      }
+      .column-3 {
+        width: 25%;
+      }
+      .column-4 {
+        width: 33.3333%;
+      }
+      .column-5 {
+        width: 41.6667%;
+      }
+      .column-6 {
+        width: 50%;
+      }
+      .column-7 {
+        width: 58.3333%;
+      }
+      .column-8 {
+        width: 66.6667%;
+      }
+      .column-9 {
+        width: 75%;
+      }
+      .column-10 {
+        width: 83.3333%;
+      }
+      .column-11 {
+        width: 91.6667%;
+      }
+      .column-12 {
+        width: 100%;
+      }
 
       /* 媒体区域 */
       .media {
@@ -86,53 +110,48 @@
         margin-right: 1.5em;
       }
       .media-body {
-        overflow: auto;   /* 创建BFC，防止正文与图片重叠 */
+        overflow: auto; /* 创建BFC，防止正文与图片重叠 */
         margin-top: 0;
       }
       .media-body h4 {
         margin-top: 0;
       }
       /* 清除浮动容器折叠修改版 */
-      .clearfix::before,.clearfix::after {   /* 选中容器首和尾的伪元素 */
-        display: table;   /* 设置伪元素样式为 table 防止外边距折叠 */
-        content: ' ';   /* 设置 content 属性让伪元素出现 */
+      .clearfix::before,
+      .clearfix::after {
+        /* 选中容器首和尾的伪元素 */
+        display: table; /* 设置伪元素样式为 table 防止外边距折叠 */
+        content: " "; /* 设置 content 属性让伪元素出现 */
       }
-      .clearfix::after {   /* 选中容器末尾的伪元素 */
-        clear: both;   /* 清除容器浮动 */
+      .clearfix::after {
+        /* 选中容器末尾的伪元素 */
+        clear: both; /* 清除容器浮动 */
       }
     </style>
-
   </head>
 
   <body>
-
     <div class="container">
-
       <header>
         <h1>Franklin Running Club</h1>
       </header>
 
       <main class="main clearfix">
-
         <h2>Running tips</h2>
 
         <div class="row">
-
           <div class="column-6">
             <div class="media">
-              <img class="media-image" src="../images/runner.png">
+              <img class="media-image" src="../images/runner.png" />
               <div class="media-body">
                 <h4>Strength</h4>
                 <p>
-                  Strength training is an important part of
-                  injury prevention. Focus on your core&mdash;
-                  especially your abs and glutes.
-                  Strength training is an important part of
-              injury prevention. Focus on your core&mdash;
-              especially your abs and gluts.
-              Strength training is an important part of
-              injury prevention. Focus on your core&mdash;
-              especially your abs and gluts.
+                  Strength training is an important part of injury prevention.
+                  Focus on your core&mdash; especially your abs and glutes.
+                  Strength training is an important part of injury prevention.
+                  Focus on your core&mdash; especially your abs and gluts.
+                  Strength training is an important part of injury prevention.
+                  Focus on your core&mdash; especially your abs and gluts.
                 </p>
               </div>
             </div>
@@ -140,30 +159,27 @@
 
           <div class="column-6">
             <div class="media">
-              <img class="media-image" src="../images/shoes.png">
+              <img class="media-image" src="../images/shoes.png" />
               <div class="media-body">
                 <h4>Cadence</h4>
                 <p>
-                  Check your stride turnover. The most efficient
-                  runners take about 180 steps per minute.
+                  Check your stride turnover. The most efficient runners take
+                  about 180 steps per minute.
                 </p>
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="row">
-
           <div class="column-6">
             <div class="media">
-              <img class="media-image" src="../images/shoes.png">
+              <img class="media-image" src="../images/shoes.png" />
               <div class="media-body">
                 <h4>Change it up</h4>
                 <p>
-                  Don't run the same every time you hit the
-                  road. Vary yur pace, and vary the distance
-                  of your runs.
+                  Don't run the same every time you hit the road. Vary yur pace,
+                  and vary the distance of your runs.
                 </p>
               </div>
             </div>
@@ -171,13 +187,12 @@
 
           <div class="column-6">
             <div class="media">
-              <img class="media-image" src="../images/runner.png">
+              <img class="media-image" src="../images/runner.png" />
               <div class="media-body">
                 <h4>Focus on form</h4>
                 <p>
-                  Run tall but relaxed. Your feet should hit
-                  the ground beneath your hips, not out in
-                  front of you.
+                  Run tall but relaxed. Your feet should hit the ground beneath
+                  your hips, not out in front of you.
                 </p>
               </div>
             </div>

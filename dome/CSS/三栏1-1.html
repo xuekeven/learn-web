@@ -3,44 +3,44 @@
 <!-- 代码：自适应高度固定宽度，在前后；自适应宽度高度，在中 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>三栏1-1</title>
-  <style>
-    #content {
-      height: 500px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
-      background-color: pink;
-      color: honeydew;
-    }
-    #left {
-      height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
-      background-color: burlywood;
-      color: honeydew;
-    }
-    #right {
-      height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
-      background-color: green;
-      color: honeydew;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>三栏1-1</title>
+    <style>
+      #content {
+        height: 500px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
+        background-color: pink;
+        color: honeydew;
+      }
+      #left {
+        height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
+        background-color: burlywood;
+        color: honeydew;
+      }
+      #right {
+        height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
+        background-color: green;
+        color: honeydew;
+      }
 
-    /* 浮动 */
-    #content {
-      float: left;
-      width: calc(100% - 400px);
-    }
-    #left {
-      float: left;
-      width: 200px;
-    }
-    #right {
-      float: left;
-      width: 200px;
-    }
+      /* 浮动 */
+      #content {
+        float: left;
+        width: calc(100% - 400px);
+      }
+      #left {
+        float: left;
+        width: 200px;
+      }
+      #right {
+        float: left;
+        width: 200px;
+      }
 
-    /* 定位 */
-    /* #wrap {
+      /* 定位 */
+      /* #wrap {
       position: relative;
     }
     #content {
@@ -60,9 +60,9 @@
       top: 0;
     } */
 
-    /* 表格布局 */
-    /* 注意，表格布局会强制等高 */
-    /* #wrap {
+      /* 表格布局 */
+      /* 注意，表格布局会强制等高 */
+      /* #wrap {
       display: table;
       width: 100%;
     }
@@ -78,8 +78,8 @@
       width: 200px;
     } */
 
-    /* 弹性布局 */
-    /* #wrap {
+      /* 弹性布局 */
+      /* #wrap {
       display: flex;
     }
     #content {
@@ -92,18 +92,18 @@
       width: 200px;
     } */
 
-    /* 网格布局 */
-    /* #wrap {
+      /* 网格布局 */
+      /* #wrap {
       display: grid;
       grid-template-columns: 200px 1fr 200px;  
     } */
-  </style>
-</head>
-<body>
-  <div id="wrap">
-    <div id="left">自适应高度固定宽度</div>
-    <div id="content">自适应宽度高度</div>
-    <div id="right">自适应高度固定宽度</div>
-  </div>
-</body>
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="left">自适应高度固定宽度</div>
+      <div id="content">自适应宽度高度</div>
+      <div id="right">自适应高度固定宽度</div>
+    </div>
+  </body>
 </html>

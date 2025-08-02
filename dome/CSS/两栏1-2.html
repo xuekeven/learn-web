@@ -3,34 +3,34 @@
 <!-- 代码：自适应高度固定宽度，在前；自适应宽度高度，在后 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>两栏1-2</title>
-  <style>
-    #content {
-      height: 500px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
-      background-color: pink;
-      color: honeydew;
-    }
-    #sidebar {
-      height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
-      background-color: green;
-      color: honeydew;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>两栏1-2</title>
+    <style>
+      #content {
+        height: 500px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
+        background-color: pink;
+        color: honeydew;
+      }
+      #sidebar {
+        height: 300px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
+        background-color: green;
+        color: honeydew;
+      }
 
-    /* 浮动 */
-    #content {
-      margin-right: 200px;
-    }
-    #sidebar {
-      float: right;
-      width: 200px;
-    }
+      /* 浮动 */
+      #content {
+        margin-right: 200px;
+      }
+      #sidebar {
+        float: right;
+        width: 200px;
+      }
 
-    /* 定位 */
-    /* #wrap {
+      /* 定位 */
+      /* #wrap {
       position: relative;
     }
     #content {
@@ -43,8 +43,8 @@
       top: 0;
     } */
 
-    /* 网格布局 */
-    /* #wrap {
+      /* 网格布局 */
+      /* #wrap {
       display: grid;
       grid-template-columns: 1fr 200px;
       grid-template-rows: 1fr;
@@ -57,12 +57,12 @@
       grid-column: 2 / 3;
       grid-row: 1 / 2;
     } */
-  </style>
-</head>
-<body>
-  <div id="wrap">
-    <div id="sidebar">自适应高度固定宽度</div>
-    <div id="content">自适应宽度高度</div>
-  </div>
-</body>
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="sidebar">自适应高度固定宽度</div>
+      <div id="content">自适应宽度高度</div>
+    </div>
+  </body>
 </html>

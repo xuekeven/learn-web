@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>双飞翼布局</title>
     <style>
       /* 参考：https://juejin.cn/post/6844903565278855181 */
@@ -15,32 +15,38 @@
         padding: 0;
       }
       .header,
-      .footer { /* 设置页面的头和尾 */
+      .footer {
+        /* 设置页面的头和尾 */
         height: 50px; /* 高度 */
         line-height: 50px; /* 文字垂直居中 */
         text-align: center; /* 文字水平居中 */
         background-color: green; /* 背景颜色 */
       }
-      .container { /* 设置三栏的父元素 */
+      .container {
+        /* 设置三栏的父元素 */
         overflow: hidden; /* 三栏都设置了浮动，需要清除浮动 */
       }
-      .main { /* 设置中间栏 */
+      .main {
+        /* 设置中间栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 100%; /* 中间栏始终占满窗口 */
         height: 130px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
         background-color: blue; /* 背景颜色 */
       }
-      .main-content { /* 设置中间栏的内容层 */
+      .main-content {
+        /* 设置中间栏的内容层 */
         margin: 0 200px; /* 使用外边距为左右两栏腾出位置 */
       }
-      .left { /* 设置左栏 */
+      .left {
+        /* 设置左栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 200px; /* 固定宽度 */
         height: 130px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
         background-color: red; /* 背景颜色 */
         margin-left: -100%; /* 使用负外边距把left放到main的左边 */
       }
-      .right { /* 设置右栏 */
+      .right {
+        /* 设置右栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 200px; /* 固定宽度 */
         height: 130px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
@@ -48,7 +54,6 @@
         margin-left: -200px; /* 使用负外边距把right放到main的右边 */
       }
     </style>
-
   </head>
 
   <body>
@@ -71,5 +76,4 @@
     </div>
     <div class="footer">双飞翼布局footer</div>
   </body>
-
 </html>

@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>三栏圣杯布局</title>
     <style>
       /* 参考：https://juejin.cn/post/6844903565278855181 */
@@ -17,35 +17,40 @@
       body {
         /* 圣杯布局最好设置最小宽度，否则页面太小时布局会乱。最小宽度 = left-width * 2 + right-width */
         /* 由于设置相对定位，所以当left原来的位置和right的位置产生重叠时，由于浮动，一行放不下就会换行 */
-        min-width: 600px; 
+        min-width: 600px;
       }
       .header,
-      .footer { /* 设置页面的头和尾 */
+      .footer {
+        /* 设置页面的头和尾 */
         height: 50px; /* 高度 */
         line-height: 50px; /* 文字垂直居中 */
         text-align: center; /* 文字水平居中 */
         background-color: green; /* 背景颜色 */
       }
-      .container { /* 设置三栏的父元素 */
+      .container {
+        /* 设置三栏的父元素 */
         padding: 0 200px; /* 使用内边距为左右两栏腾出位置 */
         overflow: hidden; /* 三栏都设置了浮动，需要清除浮动 */
       }
-      .main { /* 设置中间栏 */
+      .main {
+        /* 设置中间栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 100%; /* 中间栏始终占满窗口 */
         height: 130px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
         background-color: blue; /* 背景颜色 */
       }
-      .left { /* 设置左栏 */
+      .left {
+        /* 设置左栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 200px; /* 固定宽度 */
         height: 130px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
         background-color: red; /* 背景颜色 */
-        margin-left: -100%;  /* 使用负外边距移动left（会导致遮挡main） */
+        margin-left: -100%; /* 使用负外边距移动left（会导致遮挡main） */
         position: relative; /* 使用绝对定位来移动left */
         left: -200px; /* 移动left，不要遮挡main */
       }
-      .right { /* 设置右栏 */
+      .right {
+        /* 设置右栏 */
         float: left; /* 为了形成一行三栏，给三栏都加上浮动 */
         width: 200px; /* 固定宽度 */
         height: 130px; /* 自适应高度，这是为了测试而设置的，可以变为其他值 */
@@ -55,7 +60,6 @@
         right: -200px; /* 移动right，不要遮挡main */
       }
     </style>
-
   </head>
 
   <body>
@@ -76,5 +80,4 @@
     </div>
     <div class="footer">圣杯布局footer</div>
   </body>
-  
 </html>
